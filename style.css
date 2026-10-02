@@ -1,0 +1,907 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap");
+:root {
+  --green: #214e41;
+  --ink: #263f35;
+  --muted: #7b827a;
+  --line: #e2e5dc;
+  --paper: #fafbf7;
+  --gold: #ad8848;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font:
+    14px "DM Sans",
+    sans-serif;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+button {
+  color: inherit;
+  background: none;
+  border: 0;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+header {
+  height: 88px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  gap: 50px;
+  background: #fffefa;
+}
+.brand {
+  font:
+    600 29px Georgia,
+    serif;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  letter-spacing: -1px;
+}
+.brand-icon {
+  font-size: 38px;
+  color: var(--green);
+}
+.beta {
+  font:
+    9px "DM Sans",
+    sans-serif;
+  letter-spacing: 1.5px;
+  margin: 6px 0 0 8px;
+  color: var(--muted);
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 100%;
+  font-size: 13px;
+}
+nav a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+nav .selected {
+  border-bottom: 2px solid var(--green);
+}
+#saved-count {
+  padding: 2px 5px;
+  background: #eef0e9;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+.languages {
+  margin-left: auto;
+  font-size: 15px;
+}
+.languages span {
+  margin: 0 14px;
+  color: #9aa296;
+}
+.hero {
+  padding: 46px 7% 42px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+  background: #f0f3e9;
+}
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #7a846e;
+}
+h1 {
+  font:
+    400 44px "Playfair Display",
+    Georgia,
+    serif;
+  margin: 16px 0;
+  color: #244b3b;
+  letter-spacing: -1.4px;
+}
+.hero p {
+  line-height: 1.85;
+  color: #778072;
+  margin-bottom: 0;
+}
+.hero-art {
+  position: absolute;
+  right: 10%;
+  top: 10px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  direction: rtl;
+}
+.hero-art:before,
+.hero-art:after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid #dce3d2;
+  border-radius: 50%;
+  left: 15px;
+  top: -40px;
+}
+.hero-art:after {
+  width: 200px;
+  height: 200px;
+  top: -10px;
+  left: 45px;
+}
+.hero-art span {
+  font:
+    80px "Noto Naskh Arabic",
+    serif;
+  color: #46624b;
+  z-index: 1;
+}
+.hero-art i {
+  position: absolute;
+  bottom: 1px;
+  width: 100%;
+  text-align: center;
+  font: italic 15px Georgia;
+  color: #8d967f;
+  direction: ltr;
+}
+main {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  max-width: 1450px;
+  margin: auto;
+  padding: 0 5%;
+}
+aside {
+  padding: 29px 23px 35px 0;
+  border-right: 1px solid var(--line);
+}
+.aside-title {
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 19px;
+}
+.aside-title span {
+  font-size: 11px;
+  color: var(--muted);
+  background: #eef0e8;
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid var(--line);
+  padding: 10px;
+  border-radius: 6px;
+}
+.search span {
+  font-size: 23px;
+  line-height: 15px;
+}
+.search input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: none;
+  font-size: 11px;
+  background: transparent;
+}
+.search kbd {
+  color: #9ba192;
+  border: 1px solid var(--line);
+  padding: 0 4px;
+}
+.filter-row {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0;
+}
+.filter-row button {
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+.filter-row .active {
+  background: #e8eee3;
+  color: var(--green);
+}
+#root-list {
+  display: grid;
+  gap: 7px;
+  max-height: 470px;
+  overflow-y: auto;
+}
+.root-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.root-row .root-item {
+  flex: 1;
+  min-width: 0;
+}
+.remove-proposal {
+  padding: 8px;
+  background: transparent;
+  border: 0;
+  color: #924638;
+  cursor: pointer;
+  font-size: 12px;
+}
+.remove-proposal:hover {
+  text-decoration: underline;
+}
+.root-item {
+  padding: 14px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+.root-item:hover {
+  background: #f0f3ec;
+}
+.root-item.active {
+  background: #eaf0e5;
+  border-color: #d9e2d1;
+}
+.root-item b {
+  font-size: 13px;
+  font-weight: 500;
+}
+.root-item small {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+  font-size: 11px;
+}
+.root-item .arabic {
+  font-size: 25px;
+  color: #54724a;
+}
+.custom-box {
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 23px;
+}
+.custom-box .eyebrow {
+  font-size: 9px;
+}
+.custom-box p {
+  font-size: 12px;
+}
+.custom-box form {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: white;
+}
+.custom-box input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  font-size: 19px;
+}
+.custom-box button {
+  padding: 8px 16px;
+  background: #eaf0e5;
+}
+.custom-box small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.workspace {
+  padding: 28px 0 35px 36px;
+  min-width: 0;
+}
+.breadcrumb {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  color: #87907e;
+}
+.breadcrumb button {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.heading {
+  display: flex;
+  gap: 27px;
+  align-items: center;
+  margin: 19px 0 16px;
+}
+.root-large {
+  font:
+    62px "Noto Naskh Arabic",
+    serif;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.heading h2 {
+  font:
+    27px "Playfair Display",
+    Georgia,
+    serif;
+  margin: 0 0 6px;
+}
+.heading p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 12px;
+}
+.root-meta {
+  display: flex;
+  gap: 20px;
+  color: #788370;
+  font-size: 10px;
+  margin-bottom: 28px;
+}
+.tabs {
+  display: flex;
+  gap: 23px;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+.tabs button {
+  padding: 13px 1px;
+  white-space: nowrap;
+  font-size: 12px;
+  color: #8b9186;
+  border-bottom: 2px solid transparent;
+}
+.tabs button.active {
+  border-color: var(--green);
+  color: var(--green);
+  font-weight: 600;
+}
+.tabs span {
+  margin-left: 5px;
+  font-size: 9px;
+}
+.results-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 19px;
+  gap: 12px;
+}
+.results-top h2 {
+  font-size: 17px;
+  font-weight: 500;
+  margin: 0 0 7px;
+}
+.results-top p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+.toggle-label {
+  font-size: 10px;
+  color: #777f71;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+input[type="checkbox"] {
+  accent-color: var(--green);
+}
+#cards {
+  display: grid;
+  gap: 16px;
+}
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffefa;
+  overflow: hidden;
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 22px 0;
+}
+.badge {
+  font-size: 9px;
+  letter-spacing: 0.3px;
+  color: #627b56;
+  background: #edf2e7;
+  border: 1px solid #e1e9d9;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.badge.hyp {
+  color: #a17f3e;
+  background: #fbf4e5;
+  border-color: #eee4cc;
+}
+.pattern {
+  font-size: 10px;
+  color: #8c9288;
+}
+.card-main {
+  display: grid;
+  grid-template-columns: 1fr 35px 1fr;
+  padding: 13px 23px 18px;
+  align-items: center;
+}
+.word {
+  font:
+    39px "Noto Naskh Arabic",
+    serif;
+  line-height: 1.6;
+}
+.translit {
+  font: italic 15px Georgia;
+  color: #7e867a;
+  margin-left: 12px;
+}
+.definition {
+  font-size: 12px;
+  color: #687561;
+  line-height: 1.6;
+}
+.arrow {
+  font-size: 19px;
+  color: #b5baa9;
+}
+.turkish {
+  font:
+    25px "Playfair Display",
+    Georgia,
+    serif;
+  margin: 8px 0;
+}
+.lang-label {
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  color: #989d92;
+}
+.examples {
+  background: #f5f7f0;
+  border-top: 1px solid #e8ece1;
+  padding: 14px 23px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+.examples p {
+  margin: 6px 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.examples p[lang="ar"] {
+  font-family: "Noto Naskh Arabic", serif;
+  font-size: 20px;
+}
+.examples small {
+  font-size: 10px;
+  color: #87917e;
+  line-height: 1.7;
+}
+.card-note {
+  font-size: 10px;
+  line-height: 1.6;
+  padding: 12px 23px;
+  color: #9c8351;
+  background: #fcf8ee;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 9px;
+  color: #8c9585;
+  margin-top: 22px;
+}
+.legend span:last-child {
+  margin-left: auto;
+}
+.dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7e9967;
+  margin-right: 4px;
+}
+.dot.amber {
+  background: #c5a363;
+}
+footer {
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  padding: 25px 5%;
+  gap: 25px;
+  color: #8a9280;
+  font-size: 11px;
+}
+footer .brand {
+  font-size: 22px;
+}
+footer button {
+  margin-left: auto;
+  font-size: 11px;
+}
+.empty {
+  padding: 30px 15px;
+  line-height: 1.8;
+  color: var(--muted);
+  font-size: 12px;
+}
+dialog {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  max-width: 610px;
+  padding: 35px;
+  color: var(--ink);
+  background: var(--paper);
+}
+dialog::backdrop {
+  background: #19322677;
+  backdrop-filter: blur(3px);
+}
+dialog h2 {
+  font: 30px Georgia;
+}
+dialog p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #6d7768;
+}
+.close {
+  float: right;
+  font-size: 26px;
+}
+#consonants {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+}
+select {
+  font:
+    24px "Noto Naskh Arabic",
+    serif;
+  border: 1px solid var(--line);
+  padding: 8px 20px;
+  background: white;
+}
+.primary {
+  background: var(--green);
+  color: white;
+  border-radius: 5px;
+  padding: 10px 16px;
+}
+.sources a {
+  text-decoration: underline;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #a68b53;
+  outline-offset: 3px;
+}
+@media (min-width: 1500px) {
+  .hero {
+    padding-left: calc((100vw - 1250px) / 2);
+  }
+}
+@media (max-width: 1050px) {
+  .hero-art {
+    right: 5%;
+    opacity: 0.45;
+  }
+  .hero h1 {
+    font-size: 36px;
+  }
+  .tabs {
+    gap: 16px;
+  }
+  .workspace {
+    padding-left: 25px;
+  }
+  .results-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  header {
+    gap: 25px;
+  }
+  .beta {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  header {
+    height: 70px;
+    padding: 0 20px;
+  }
+  nav {
+    gap: 18px;
+    margin-left: auto;
+  }
+  nav button:last-child,
+  .languages {
+    display: none;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .hero {
+    padding: 32px 22px;
+  }
+  .hero h1 {
+    font-size: 33px;
+    max-width: 330px;
+  }
+  .hero p {
+    font-size: 12px;
+    max-width: 280px;
+  }
+  .hero-art {
+    right: -55px;
+    opacity: 0.15;
+  }
+  .eyebrow {
+    font-size: 8px;
+  }
+  main {
+    display: block;
+    padding: 0 20px;
+  }
+  aside {
+    border-right: 0;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  #root-list {
+    display: flex;
+    max-height: none;
+    overflow: auto;
+  }
+  .root-item {
+    min-width: 155px;
+    padding: 10px;
+  }
+  .custom-box {
+    margin-top: 15px;
+    padding-top: 14px;
+  }
+  .custom-box p,
+  .custom-box .eyebrow {
+    display: none;
+  }
+  .custom-box form {
+    max-width: 280px;
+  }
+  .workspace {
+    padding: 23px 0;
+  }
+  .tabs {
+    gap: 20px;
+  }
+  .heading {
+    gap: 22px;
+  }
+  .root-large {
+    font-size: 52px;
+  }
+  .heading h2 {
+    font-size: 25px;
+  }
+  .root-meta {
+    gap: 12px;
+    font-size: 9px;
+  }
+  .card-main {
+    padding: 13px 16px;
+    grid-template-columns: 1fr 20px 1fr;
+  }
+  .card-head {
+    padding: 14px 16px 0;
+  }
+  .word {
+    font-size: 32px;
+  }
+  .translit {
+    display: block;
+    margin: 0;
+  }
+  .turkish {
+    font-size: 22px;
+  }
+  .examples {
+    padding: 12px 16px;
+    gap: 18px;
+  }
+  .legend span:last-child {
+    margin-left: 0;
+  }
+  footer {
+    padding: 20px;
+    gap: 15px;
+  }
+  footer > span {
+    display: none;
+  }
+  dialog {
+    max-width: calc(100% - 30px);
+    padding: 25px;
+  }
+}
+body:not(.show-arabic) .original {
+  display: none;
+}
+body:not(.show-arabic) .examples small {
+  font-size: 12px;
+  color: #687561;
+  display: block;
+  margin-top: 9px;
+}
+body:not(.show-arabic) .root-large,
+body:not(.show-arabic) .arabic {
+  direction: ltr;
+  font-family: Georgia, serif;
+}
+body:not(.show-arabic) .word {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  line-height: 2;
+}
+.hero-art {
+  direction: ltr;
+}
+.hero-art span {
+  font-family: Georgia, serif;
+}
+.languages {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 760px) {
+  .languages {
+    position: absolute;
+    top: 78px;
+    right: 15px;
+    z-index: 2;
+    font-size: 9px;
+  }
+  .hero {
+    padding-top: 42px;
+  }
+}
+.examples {
+  display: block;
+}
+.examples p,
+body:not(.show-arabic) .examples p {
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 9px 0;
+}
+.examples strong {
+  font-weight: 600;
+  color: var(--green);
+  background: #e8eedd;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+body:not(.show-arabic) .examples small,
+.examples small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.source-line {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 23px;
+  font-size: 10px;
+  border-top: 1px solid var(--line);
+}
+.source-line a,
+.coverage a {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.source-line span {
+  color: var(--muted);
+}
+.coverage {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: -3px 0 18px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.source-script {
+  display: block;
+  font:
+    26px "Noto Naskh Arabic",
+    serif;
+  color: var(--muted);
+}
+.card-main .definition {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.pattern {
+  text-align: right;
+  line-height: 1.6;
+}
+.card-head {
+  gap: 10px;
+}
+.badge {
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.library-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.library-tabs button {
+  padding: 10px 0;
+  font-size: 11px;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+}
+.library-tabs button.active {
+  color: var(--green);
+  border-bottom-color: var(--green);
+  font-weight: 600;
+}
+.library-tabs span {
+  font-size: 9px;
+  margin-left: 3px;
+}

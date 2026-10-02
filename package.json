@@ -1,0 +1,18 @@
+{
+  "name": "ottomeant",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "dev": "bash serve.sh",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "format": "prettier --write src tests index.html style.css package.json tsconfig.json README.md",
+    "serve": "bash serve.sh"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  }
+}
