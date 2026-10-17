@@ -4,7 +4,7 @@ set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
-  printf 'Usage: ./serve.sh [port]\nBuild TypeScript and serve on localhost. Defaults to port 8000, or the next free port.\nRequires Node.js, npm, Python 3, and npm install.\n'
+  printf 'Usage: ./serve.sh [port]\nPrecompute roots, build TypeScript, and serve on localhost. Defaults to port 8000, or the next free port.\nRequires Node.js, npm, uv, and npm install.\n'
   exit 0
 fi
 if (( $# > 1 )); then
@@ -17,9 +17,9 @@ if [[ ! "$site_port" =~ ^[0-9]{1,5}$ ]] || (( 10#$site_port < 1 || 10#$site_port
   exit 2
 fi
 site_port=$((10#$site_port))
-for required_command in node npm python3; do
+for required_command in node npm uv; do
   if ! command -v "$required_command" >/dev/null 2>&1; then
-    printf 'Missing %s. Activate your Node.js environment and install Python 3 before retrying.\n' "$required_command" >&2
+    printf 'Missing %s. Activate your Node.js environment and install uv before retrying.\n' "$required_command" >&2
     exit 1
   fi
 done
@@ -29,6 +29,6 @@ if [[ ! -f node_modules/typescript/bin/tsc ]]; then
 fi
 npm run build
 if (( $# == 0 )); then
-  exec python3 scripts/serve.py "$site_port" --fallback
+  exec uv run --locked python scripts/serve.py "$site_port" --fallback
 fi
-exec python3 scripts/serve.py "$site_port"
+exec uv run --locked python scripts/serve.py "$site_port"

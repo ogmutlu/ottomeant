@@ -4,11 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "check": "tsc -p tsconfig.json --noEmit",
+    "build": "npm run data:build && npm run build:ts",
+    "build:ts": "tsc -p tsconfig.json",
+    "data:build": "uv run --locked python -m pipeline",
+    "check": "npm run check:ts && npm run check:python",
+    "check:ts": "tsc -p tsconfig.json --noEmit",
+    "check:python": "uv run --locked ruff check pipeline tests/python scripts/check_site.py && uv run --locked ty check pipeline tests/python scripts/check_site.py",
     "dev": "bash serve.sh",
-    "test": "npm run build && node --test tests/*.test.mjs",
-    "format": "prettier --write src tests index.html style.css package.json tsconfig.json README.md",
+    "test": "npm run build && uv run --locked python -m unittest discover -s tests/python -v && node --test --test-isolation=none tests/*.test.mjs",
+    "format": "prettier --write src 'tests/*.mjs' index.html style.css package.json tsconfig.json README.md && uv run --locked ruff format pipeline tests/python scripts/check_site.py",
     "serve": "bash serve.sh"
   },
   "devDependencies": {

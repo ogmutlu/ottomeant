@@ -1,78 +1,87 @@
 # Ottomeant
 
-Türkçe arayüzlü Arapça–Türkçe kök atlası. 94 kök ailesinde 324 sözcük, Nişanyan Sözlük üzerinden kontrol edilmiştir. Her sözcüğün kaynak bağlantısı ve o sözcüğü aynı yazımla kullanan özgün bir Türkçe örneği vardır. Arapça örnek cümle gösterilmez; özgün sözcük yazımı isteğe bağlıdır.
+Bir Türkçe sözcük veya üç harfli Arapça kök girin; aynı kökün Nişanyan kayıtlarını ve kalıplardan üretilen adaylarını görün. Ana akış tek bir büyük arama alanıdır. Altındaki kök kütüphanesi, mevcut 94 kök ailesini ve 324 kaynaklı sözcüğü korur.
+
+Site tamamen statiktir. Python yalnızca geliştirme ve derleme sırasında çalışır. Ziyaretçinin Python’a, bir API’ye veya uygulama sunucusuna ihtiyacı yoktur.
 
 ## Çalıştırma
 
-Node.js 22 veya üzeri, npm ve Python 3 gerekir:
+Node.js 22+, npm ve [uv](https://docs.astral.sh/uv/) gerekir. `.python-version` Python 3.13 seçer; uv ortamı ve Python geliştirme araçlarını yönetir.
 
 ```sh
-npm install
-./serve.sh
+npm ci
+uv sync --locked
+npm run dev
 ```
 
-Betik başlatıldığında yazdırılan adresi açın. Varsayılan port 8000 doluysa sıradaki boş port seçilir; `./serve.sh 8080` gibi açıkça seçilen bir port doluysa anlaşılır bir hata verilir. Betik önce TypeScript derlemesini yapar; derleme başarısızsa sunucuyu başlatmaz. `Ctrl+C` ile durdurabilirsiniz.
-
-Başka bir port veya npm üzerinden çalıştırma:
+`npm run dev` önce bütün verileri ve TypeScript’i derler, ardından yerel önizlemeyi başlatır. Varsayılan adres `http://127.0.0.1:8000`; port doluysa sonraki boş port kullanılır. Belirli bir port için `./serve.sh 8080` çalıştırın. Değişiklikten sonra yeniden derleyip tarayıcıyı yenileyin.
 
 ```sh
-./serve.sh 8080
-npm run serve -- 8080
+npm run build        # Python önhesaplama + TypeScript
+npm run data:build   # yalnızca JSON verileri
+npm run build:ts     # yalnızca arayüz kodu
+npm run check       # strict TypeScript, Ruff ve Python tür denetimi
+uv run ty check pipeline tests/python
+uv run ruff check pipeline tests/python
+npm test            # derleme + Python ve TypeScript/JavaScript regresyonları
 ```
 
-`./serve.sh --help` kullanım bilgisini gösterir. Sunucu yalnızca yerel makineye bağlanır. NVM kullanıyorsanız önce `nvm use` ile Node.js ortamınızı etkinleştirin. Geliştirme sunucusu dosyaları otomatik derlemez; düzenleme sonrasında `npm run build` çalıştırın ve tarayıcıyı yenileyin.
+## Alan mantığı ve arayüz
 
-## GitHub Pages
-
-Hedef adres: https://ogmutlu.github.io/ottomeant/
-
-GitHub üzerinde `ogmutlu/ottomeant` adlı boş, herkese açık bir depo oluşturun. Proje dosyalarını `main` dalına gönderin; `.github/workflows/pages.yml` dosyasını da ekleyin. Depoda **Settings → Pages → Build and deployment → Source → GitHub Actions** seçin.
-
-Yerel klasör henüz Git deposu değilse ilk gönderim:
-
-```sh
-git init -b main
-git add .
-git commit -m "Publish Ottomeant"
-git remote add origin https://github.com/ogmutlu/ottomeant.git
-git push -u origin main
+```text
+data/lexicon.json                 Düzenlenebilir kaynaklı sözlük
+          |
+pipeline/model.py                TypedDict sözleşmeleri ve giriş doğrulaması
+pipeline/morphology.py           Kökler, kalıplar, biçim kimliği, sözlük önceliği
+pipeline/build.py                Bütün birleşimleri statik JSON'a dönüştürür
+          |
+public/data/                     Oluşturulan dosyalar; Git'e eklenmez
+          |
+src/model.ts + src/codec.ts       Readonly türler ve JSON sınır doğrulaması
+src/data.ts                      Sürümlü, önbellekli, gerektiğinde dosya yükleme
+src/lookup.ts                    Saf sözcük/kök çözümleme; DOM veya üretim yok
+src/render.ts                    Sunum; kalıp üretmez, sözlük eşleştirmez
+src/main.ts                      DOM olayları, gezinme ve görünüm durumu
 ```
 
-Actions sekmesindeki **Deploy Ottomeant to GitHub Pages** iş akışını çalıştırın. Sonraki `main` gönderimleri otomatik yayımlanır. İş akışı TypeScript denetimini ve testleri çalıştırır; yalnızca HTML, CSS ve derlenmiş JavaScript dosyalarını yayımlar. Bağlantılar göreli olduğu için `/ottomeant/` altında çalışır. Sunucu veya `serve.sh` GitHub Pages üzerinde gerekmez. Önerilen kökler ve kaydedilenler ziyaretçinin tarayıcısında kalır.
+Python motoru bağımlılıksız, açık kurallara dayanan bir başlangıç motorudur. CAMeL Tools veya başka bir haricî Arapça sözlük/model henüz eklenmemiştir; üretilen kayıtlar böyle bir araç tarafından doğrulanmış gibi sunulmaz. İleride dilbilimsel veri zenginleştirmesi Python derleme katmanına eklenebilir; tarayıcı ve statik barındırma sözleşmesi korunabilir.
 
-## Yapı
+## Bütün birleşimler
 
-- `src/model.ts`: sözlük kaydı ile doğrulanmamış kalıbı ayıran `Entry` birleşim türü.
-- `src/data.ts`: başlangıç kökleri ve sözlük koleksiyonunun birleştirilmesi.
-- `src/expanded-data.ts`: 82 yeni kök ailesi ve 242 kaynaklı sözcük.
-- `src/library.ts`: değiştirilmeyen sözlük koleksiyonu ve ayrı kullanıcı önerileri.
-- `src/morphology.ts`: DOM ve depolamadan bağımsız kalıp üretimi ve kök çözümleme.
-- `src/hypotheses.ts`: her rol için kökün anlamına dayanan öneri ve varsayımsal Türkçe örnek.
-- `src/main.ts`: arayüz, kaynak bağlantıları ve yerel kaydetme.
-- `serve.sh`: derleme ve yerel sunucu.
-- `scripts/serve.py`: portu gerçekten bağladıktan sonra adresi duyuran, port çakışmasını yöneten sunucu.
-- `tests/morphology.test.mjs`: bütün üçlü birleşimler, aynı roldeki birden fazla sözcük, kaynak alanları ve örneklerde tam sözcük eşleşmesi.
+28 desteklenen Arapça harfin bütün sıralı üçlüleri hesaplanır: **28³ = 21.952 birleşim**. Her birleşim için **43 seçili kalıp** değerlendirilir: I–X fiil biçimleri, temel isim adayları ve türemiş fiillerin seçili mastar/ortaçları. IX. biçime edilgen ortaç uydurulmaz.
 
-```sh
-npm run check
-npm test
-npm run format
+Her kökün dosyası `public/data/roots/XX/XX-YY-ZZ.json` yolundadır. Sayılar, manifestodaki harf sırasının sıfırdan başlayan indisleridir. Başlangıçta yalnızca `manifest.json` ve küçük sözcük arama dizini yüklenir; bir kök seçildiğinde onun dosyası indirilir. Kalıp açıklamaları manifestoda bir kez saklanır; dosyadaki kısa satırlar TypeScript sınırında adlandırılmış nesnelere dönüştürülür.
+
+Veriler deterministiktir; değişmeyen dosyalar yeniden yazılmaz. İçerik sürümü sözlükten ve Python motorundan hesaplanır. Eski ve yeni sürümler karışırsa arayüz sessizce yanlış veri göstermek yerine yükleme hatası verir.
+
+## Sözlük önceliği ve kanıt
+
+- `data/lexicon.json`, önceki TypeScript seçkisinin kayıpsız taşınmış hâlidir. Kaynak URL’leri, kontrol tarihleri, alt madde bilgileri, özgün örnekler ve köken belirsizlikleri korunmuştur. Bu çalışma kaynak sayfalarını yeniden kontrol etmiş sayılmaz.
+- **Aynı kök ve Arapça biçim** eşleşirse sözlük kaydı varsayımsal adayı kaldırır. Aynı biçimin birden çok Türkçe karşılığı korunur. `âlim`, `allame`, `muallim` gibi aynı anlamsal role sahip farklı biçimler birbirini silmez.
+- Biçim eşleştirmesinde ünlü işaretleri kaldırılır; şedde harf ikizleşmesi olarak korunur. `مُعَلِّم` ve `مُعْلِم` aynı biçim sayılmaz. Ünlüsüz eş yazımlılık aynı anlam veya türetim geçmişini kanıtlamaz.
+- Bir sözcüğün seçkide bulunmaması Nişanyan’da veya dilde bulunmadığı anlamına gelmez. Canlı Nişanyan taraması ve bütün sözlüğün içe aktarımı yapılmaz.
+- Türkçe başlık araması `kâtip` / `katip` gibi düzeltme işaretli ünlüleri eşleştirir; `ş/s`, `ç/c`, `ö/o`, `ü/u` ayrımlarını korur. Kök okunuşu birden fazla Arapça köke denk gelirse seçim gösterilir. Tam kök seçimi için Arapça harfler kullanılabilir.
+- Sözlükte bulunmayan Türkçe sözcüklerden etimoloji uydurulmaz. Ekli sözcüklerin Türkçe biçimbilimsel çözümlemesi henüz yoktur; sözlük başlığı veya kök girilmelidir.
+
+## Dilbilimsel kapsam
+
+Önhesaplama bütün desteklenen **harf birleşimlerini** kapsar; bütün Arapça sözcükleri veya çekimleri kapsadığı ileri sürülmez. Her kök her kalıbı kullanmaz. I. biçimin orta ünlüsü ve mastarı sözlükseldir; verilen biçimler yalnızca adaydır. IX. biçimin anlam alanı özellikle sınırlıdır.
+
+Zayıf, ikiz ve hemzeli kökler ile belirli VIII. biçim benzeşmeleri **ham kalıp** olarak işaretlenir: gerekli ses ve yazım değişimleri uygulanmamıştır. Dört harfli kökler, düzensiz çoğullar ve bütün çekim paradigmaları kapsamda değildir.
+
+Üretilen okunuşlar Türkçe harflerle yaklaşık Arapça okunuşlardır. Tarihsel Türkçe alıntı sözcüklerin yazımı ancak kaynaklı kayıttan gösterilir. Yeni bir kökün anlamı bilinmiyorsa ona sözlük anlamı veya kurgusal kullanım cümlesi atanmaz.
+
+## Statik yayımlama
+
+GitHub Pages iş akışı uv ve npm ortamlarını kurar, Python/TypeScript denetimlerini ve testleri çalıştırır, sonra şu dosyaları yayımlar:
+
+```text
+index.html
+style.css
+dist/
+public/data/
 ```
 
-## Kaynak ve kanıt sınırı
+Elle barındırmada da `npm run build` sonrasında bu dosyaları aynı göreli yapıyla kopyalayın. Bağlantılar hem alan adı kökünde hem `/ottomeant/` gibi bir alt yolda çalışır. Ziyaretçilere kaynak sözlük dosyasını veya Python ortamını yayımlamak gerekmez. `public/data/` Git tarafından yok sayılır ve her derlemede yeniden üretilebilir.
 
-Kaynak: [Nişanyan Sözlük, Sevan Nişanyan](https://www.nisanyansozluk.com/). Sözcük sayfaları 1 Ekim 2026 tarihinde kontrol edilmiştir. Alt madde olarak kaydedilen sözcükler ana madde adıyla birlikte gösterilir. Tanımlar ve örnekler burada yazılmıştır; Nişanyan’ın tarihsel tanıkları veya açıklamaları topluca kopyalanmamıştır. Kaynak bağlantısı sözcüğü ve köken ilişkisini destekler; burada yazılan örnek cümle sözlük alıntısı değildir.
-
-`Entry = DictionaryEntry | UnverifiedForm`: kaydı henüz kontrol edilmeyen bir kalıp, “olmayan sözcük” diye etiketlenmez. Desteklenen her kalıp için eşleşen sözlük kaydı bulunmuyorsa varsayımsal kart gösterilir. Bu kartlar varsayılan olarak görünürdür; önerilen anlam ve tam biçimi kullanan kurgusal Türkçe örnek içerir. Örnekler gerçek kullanım kanıtı olarak sunulmaz. Bir sözlük kaydı aynı rolün başka türevlerini silmez. Örneğin `âlim`, `allame` ve `muallim` birlikte gösterilir.
-
-Nişanyan’ın tanıksız olarak işaretlediği Arapça köken biçimleri, Türkçe sözcüğün kaydından ayrı açıklanır. `manzara` ve `nazariye` kartlarında bu ayrım görünür. Rol sınıflandırması anlamsal bir gezinti aracıdır; dilbilgisel kalıp ayrıca belirtilir.
-
-Sözlük kökleri ile kullanıcı önerileri ayrı kütüphane sekmelerindedir. Öneriler tarayıcıda saklanır; yeni bir kök eklemek sözlük koleksiyonunu değiştirmez. Sözlükte zaten bulunan bir kök yeniden önerilirse mevcut kaydı açılır.
-
-Sözlük verisi yerel bir seçkidir; sitedeki arama bütün Nişanyan veritabanını canlı taramaz. Her kökün yanında Nişanyan’ın kendi kök aramasına bağlantı vardır. Yeni kayıtlar eklenirken kaynak sayfası gerçekten okunmalı, doğru kök kontrol edilmeli ve örnek cümlede başlıktaki Türkçe sözcük aynen kullanılmalıdır.
-
-## Kalıp üretimi
-
-21.952 sıralı üç harfli birleşim, yedi isim şablonu ve ilk on fiil biçimi gezilebilir. Nadir fiil biçimleri, dört harfli kökler ve tüm çekim paradigmaları uygulanmamıştır. Zayıf, ikiz ve hemzeli köklerin çıktıları ham şablondur. Arapça biçim ile Türkçeye geçmiş sözcük arasındaki ses değişimleri genel bir algoritmayla üretilmez; sözlük kayıtlarında gerçek Türkçe biçim gösterilir.
-
-Yeni kök girişinde Türkçe harfler aynen korunur; `ş` ile `s` ayrı değerlendirilir. Desteklenmeyen harfler başka harfe çevrilmeden reddedilir. Türkçe harflerle kök okunuşu, Arapça ses ayrımları bakımından kayıplıdır. Atlas menüsündeki numaralı harf seçicisi her Arapça harfi ayrı seçebilir. Arama ve kaydetme tarayıcıda çalışır. Google Fonts yüklenemezse sistem yazı tipleri kullanılır.
+Kaynak: [Nişanyan Sözlük](https://www.nisanyansozluk.com/). Tanımlar ve mevcut Türkçe örnekler özgün editör metinleridir; sözlükten toplu alıntı değildir.

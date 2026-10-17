@@ -21,14 +21,21 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - run: uv sync --locked
       - run: npm ci
       - run: npm run check
+      - run: uv run --locked ruff format --check pipeline tests/python scripts/check_site.py
       - run: npm test
       - name: Prepare public files
         run: |
           mkdir -p _site
           cp index.html style.css _site/
           cp -r dist _site/dist
+          mkdir -p _site/public
+          cp -r public/data _site/public/data
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

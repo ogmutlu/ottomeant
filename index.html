@@ -3,203 +3,147 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#194c40" />
-    <title>Ottomeant — Sözcüklerin ardındaki dil</title>
+    <meta name="theme-color" content="#214e41" />
+    <meta
+      name="description"
+      content="Bir Türkçe sözcük veya Arapça kök girin; Nişanyan kayıtlarını ve aynı kökten üretilen biçimleri keşfedin."
+    />
+    <title>Ottomeant · Bir sözcük, bir kök, birçok biçim.</title>
     <link rel="stylesheet" href="style.css" />
+    <script type="module" src="dist/main.js"></script>
   </head>
   <body>
-    <header>
-      <a class="brand" href="./"
-        ><span class="brand-icon">۞</span> ottomeant<span class="beta"
-          >KÖK ATLASI</span
-        ></a
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Ottomeant ana sayfa"
+        ><span aria-hidden="true">۞</span> ottomeant</a
       >
-      <nav>
-        <a class="selected" href="#explorer">Kökleri keşfet</a
-        ><button id="saved-nav">
-          Kaydedilenler <span id="saved-count">0</span></button
-        ><button id="about">Atlas hakkında ↗</button>
+      <nav aria-label="Ana gezinme">
+        <a href="#known">Bilinen kökler</a><a href="#method">Nasıl çalışır?</a>
       </nav>
-      <label class="languages"
-        ><input id="show-arabic" type="checkbox" /> Arapça asılları
-        göster</label
-      >
     </header>
-    <section class="hero">
-      <div class="eyebrow">İKİ DİL. ORTAK KÖKLER. SAYISIZ BAĞLANTI.</div>
-      <h1>Sözcüklerin ardındaki dil.</h1>
-      <p>
-        Bir Arapça kökten doğan anlam ailesinin izini sürün.<br />Biçimleri,
-        Türkçe karşılıkları ve olası anlamları keşfedin.
-      </p>
-      <div class="hero-art" aria-hidden="true">
-        <span>k</span><span>t</span><span>b</span><i>bir kök. birçok hikâye.</i>
-      </div>
-    </section>
-    <main id="explorer">
-      <aside>
-        <div class="aside-title">
-          Kök kütüphanesi <span id="root-count"></span>
-        </div>
-        <label class="search"
-          ><span>⌕</span
-          ><input
-            id="search"
-            placeholder="Kök, sözcük veya anlam ara…"
-            aria-label="Köklerde ara"
-          /><kbd>/</kbd></label
-        >
-        <div
-          class="library-tabs"
-          role="tablist"
-          aria-label="Kök koleksiyonları"
-        >
-          <button
-            role="tab"
-            aria-selected="true"
-            data-library="dictionary"
-            class="active"
+    <main>
+      <section class="search-hero" aria-labelledby="search-title">
+        <p class="eyebrow">TÜRKÇE SÖZCÜKLERİN ARAPÇA KÖKLERİ</p>
+        <h1 id="search-title">Bir sözcük.<br /><em>Birçok biçim.</em></h1>
+        <p class="intro">
+          Bir Türkçe sözcük veya kök girin. Aynı kökten gelen sözcükleri ve
+          olası biçimleri görün.
+        </p>
+        <form id="search-form" role="search">
+          <label class="sr-only" for="search"
+            >Türkçe sözcük veya üç kök harfi</label
           >
-            Sözlük kökleri <span id="dictionary-count"></span>
-          </button>
-          <button role="tab" aria-selected="false" data-library="proposed">
-            Önerilenler <span id="proposed-count"></span>
-          </button>
-        </div>
-        <div class="filter-row">
-          <button id="all-filter" class="active">Tüm kökler</button
-          ><button id="saved-filter">☆ Kaydedilenler</button>
-        </div>
-        <div id="root-list"></div>
-        <div class="custom-box">
-          <span class="eyebrow">BİR OLASILIĞI KEŞFET</span>
-          <p>Aklınızda başka bir kök mü var?</p>
-          <form id="custom-form">
+          <div class="search-box">
+            <span class="search-icon" aria-hidden="true">⌕</span>
             <input
-              id="custom-root"
-              aria-label="Üç kök harfi"
-              placeholder="ör. k-t-b"
-              required
-            /><button aria-label="Yeni kökü keşfet">↗</button>
-          </form>
-          <small id="custom-error"
-            >Türkçe harflerle bir kök girin: k-t-b.</small
-          >
-        </div>
-      </aside>
-      <section class="workspace">
-        <div class="breadcrumb">
-          KÖK ATLASI <span>/</span> <span id="crumb"></span
-          ><button id="save-root">☆ Kökü kaydet</button>
-        </div>
-        <div id="root-heading"></div>
-        <div class="root-meta">
-          <span>◈ &nbsp; Üç harfli kök</span><span id="root-kind"></span
-          ><span>Arapça → Türkçe</span>
-        </div>
-        <div
-          class="tabs"
-          role="tablist"
-          aria-label="Biçimbilimsel roller"
-          id="tabs"
-        ></div>
-        <div class="results-top">
-          <div>
-            <h2 id="role-title"></h2>
-            <p id="role-description"></p>
+              id="search"
+              name="q"
+              type="search"
+              placeholder="kitap, muallim veya k-t-b…"
+              list="suggestions"
+              autocomplete="off"
+              spellcheck="false"
+              aria-describedby="search-help status"
+            />
+            <button id="search-submit" type="submit" disabled>
+              Biçimleri bul <span aria-hidden="true">↗</span>
+            </button>
           </div>
-          <label class="toggle-label"
-            ><input id="include-unverified" type="checkbox" checked />
-            Varsayımsal biçimler</label
-          >
+          <datalist id="suggestions"></datalist>
+        </form>
+        <div class="search-examples">
+          <span>Örneğin</span><button data-query="kitap">kitap</button
+          ><button data-query="muallim">muallim</button
+          ><button data-query="ş-k-r">ş-k-r</button
+          ><button data-query="k-l-m">k-l-m</button>
         </div>
-        <div class="coverage">
-          <span id="coverage"></span
-          ><a
-            id="root-source"
-            href="https://www.nisanyansozluk.com/arama"
-            target="_blank"
-            rel="noreferrer"
-            >Nişanyan’da kökü ara ↗</a
-          >
-        </div>
-        <div id="cards"></div>
-        <div class="legend">
-          <span><i class="dot"></i> Nişanyan’da kayıtlı</span
-          ><span
-            ><i class="dot amber"></i> Varsayımsal · kayıt eşleşmesi yok</span
-          ><span>Anlamlar yolculuk eder, bazen değişir.</span>
-        </div>
+        <p id="search-help" class="search-help">
+          Türkçe başlıkları, k-t-b gibi kök okunuşlarını veya Arapça kök
+          harflerini arayabilirsiniz.
+        </p>
+        <p id="coverage" class="coverage"></p>
+        <noscript>Arama için JavaScript’i etkinleştirin.</noscript>
       </section>
+      <div class="search-feedback">
+        <p id="status" role="status" aria-live="polite">Kökler yükleniyor…</p>
+        <button id="retry" class="secondary" hidden>Yeniden dene</button>
+        <div id="choices"></div>
+      </div>
+      <section
+        id="results"
+        aria-label="Arama sonuçları"
+        aria-busy="false"
+        hidden
+      >
+        <div class="result-options">
+          <label
+            ><input id="include-generated" type="checkbox" checked /> Üretilen
+            adaylar</label
+          ><label
+            ><input id="show-arabic" type="checkbox" /> Arapça yazımları
+            göster</label
+          >
+        </div>
+        <div id="family"></div>
+      </section>
+      <section id="known" class="known-section" aria-labelledby="known-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">KÖK KÜTÜPHANESİ</p>
+            <h2 id="known-title">Bilinen kökler ve sözcükleri</h2>
+          </div>
+          <span id="known-count"></span>
+        </div>
+        <p class="section-note">
+          Nişanyan’dan kontrol edilmiş yerel seçki. Bir köke veya sözcüğe
+          dokunarak bütün ailesini açın.
+        </p>
+        <div id="known-roots" class="known-grid"></div>
+        <button
+          id="more-roots"
+          class="secondary"
+          aria-expanded="false"
+          aria-controls="known-roots"
+          hidden
+        >
+          Tüm kökleri göster
+        </button>
+      </section>
+      <details id="method" class="method">
+        <summary>Bu biçimler nereden geliyor?</summary>
+        <p>
+          Kaynaklı sözcükler Nişanyan Sözlük’ten kontrol edilmiş yerel
+          kayıtlardır. Her sözcükte kaynak bağlantısı ve kontrol tarihi bulunur.
+          Seçki bütün sözlüğü kapsamaz; arama Nişanyan’ı canlı taramaz.
+        </p>
+        <p>
+          Diğer biçimler Arapça kalıplardan üretilen adaylardır. Bir adayın
+          Türkçede veya Arapçada kullanıldığı ileri sürülmez. Türkçe harfli
+          okunuş, yerleşik bir Türkçe sözcük yazımı değildir. Kökün anlamı
+          bilinmiyorsa üretilen biçimlere sözlük anlamı verilmez.
+        </p>
+        <p>
+          Sözlükte aynı kök ve Arapça biçim için kayıt varsa kaynaklı sözcük
+          gösterilir; karşılık gelen aday kaldırılır. Aynı biçimin farklı Türkçe
+          sözcükleri korunur. Eşleştirmede ünlü işaretleri kaldırılır, şedde
+          korunur; ünlüsüz eş yazımlılık aynı anlamı kanıtlamaz.
+        </p>
+        <p>
+          Desteklenen alan 28 harfin üçlü, sıralı birleşimleri ve I–X fiil
+          kalıplarıyla seçili isim kalıplarıdır. Dört harfli kökler, bütün
+          çekimler ve bütün mastar/çoğul kalıpları kapsamda değildir. Zayıf,
+          ikiz ve hemzeli kökler ile gereken VIII. biçim benzeşmeleri ham kalıp
+          olarak işaretlenir.
+        </p>
+        <p>
+          Türkçe okunuş bazı Arapça harf ayrımlarını birleştirir. Birden fazla
+          olası kök varsa seçim sunulur; tam seçim için Arapça kök harfleri
+          kullanılabilir.
+        </p>
+      </details>
     </main>
     <footer>
-      <a class="brand" href="./">۞ ottomeant</a
-      ><span>Dillerin olasılıklarına açılan küçük bir atlas.</span
-      ><button id="method">Yöntemimiz ↗</button>
+      <a class="brand" href="./">ottomeant</a>
     </footer>
-    <dialog id="info">
-      <button class="close" aria-label="Pencereyi kapat">×</button>
-      <div class="eyebrow">BU ATLAS HAKKINDA</div>
-      <h2>Kökler birleştirir. Bağlam anlam verir.</h2>
-      <p>
-        Bu atlasın sözcük kayıtları Nişanyan Sözlük üzerinden kontrol edilir.
-        Her kartta ilgili maddeye bağlantı bulunur. Alt maddede geçen sözcükler
-        ayrıca belirtilir. Tanımlar ve Türkçe örnek cümleler özgün editör
-        metinleridir; sözlükten alıntı değildir.
-      </p>
-      <p>
-        Örnek cümleler, kartta gösterilen Türkçe sözcüğü aynı yazımla ve anlamlı
-        bir bağlam içinde kullanır. Arapça örnek cümle verilmez. İsteğe bağlı
-        Arapça yazım yalnızca sözcük ve kök içindir.
-      </p>
-      <p>
-        Doğrulanmamış bir kalıp, olmayan bir sözcük demek değildir. Sözlük
-        seçkisinde karşılığı bulunmayan her desteklenen kalıp, varsayımsal biçim
-        olarak gösterilir. Bu biçimler başlangıçta görünürdür; her birinin
-        önerilen anlamı ve sözcüğü aynen kullanan kurgusal Türkçe örneği vardır.
-        Nişanyan bir kaynak biçimi tanıksız veya yeniden kurulmuş olarak
-        işaretliyorsa bu durum Türkçe sözcüğün varlığından ayrı tutulur.
-      </p>
-      <p>
-        Yapan, etkilenen, konu ve nitelik anlamsal gezinti etiketleridir. Aynı
-        kökte birden fazla yapan veya eylem adı bulunabilir. Kalıp bilgisi
-        kartta ayrıca gösterilir; tek bir rol, tek bir sözcükle
-        sınırlandırılmaz.
-      </p>
-      <p>
-        28 harfle oluşturulan 21.952 sıralı üç harfli birleşim gezilebilir. Yedi
-        isim şablonu ve ilk on fiil biçimi denenebilir. Bu üretim, bütün
-        sözcüklerin sözlükte doğrulandığı anlamına gelmez. Zayıf, ikiz ve
-        hemzeli kökler ek ses kuralları gerektirir. Nadir biçimler, dört harfli
-        kökler ve bütün çekimler bu sürümün dışındadır.
-      </p>
-      <p>
-        Okunuşlarda Türkçe harfler kullanılır. Arapça seslerin bazı ayrımları ve
-        ünlü uzunlukları bu yazımda birleşir. Tam kök seçimi için aşağıdaki
-        numaralı harfler kullanılabilir.
-      </p>
-      <label>Bir harf birleşimi seçin</label>
-      <div id="consonants"></div>
-      <button id="browse-combination" class="primary">
-        Birleşimi keşfet →
-      </button>
-      <p class="sources">
-        Kaynak:
-        <a
-          href="https://www.nisanyansozluk.com/"
-          target="_blank"
-          rel="noreferrer"
-          >Nişanyan Sözlük — Sevan Nişanyan</a
-        >
-        ·
-        <a
-          href="https://www.nisanyansozluk.com/arama"
-          target="_blank"
-          rel="noreferrer"
-          >Kök ve vezin araması</a
-        >
-      </p>
-    </dialog>
-    <script type="module" src="dist/main.js"></script>
   </body>
 </html>
