@@ -1,6 +1,6 @@
 # Ottomeant
 
-Bir Türkçe sözcük veya üç harfli Arapça kök girin; aynı kökün Nişanyan kayıtlarını ve kalıplardan üretilen adaylarını görün. Ana akış tek bir büyük arama alanıdır. Altındaki kök kütüphanesi, mevcut 94 kök ailesini ve 324 kaynaklı sözcüğü korur.
+Bir Türkçe sözcük, Arapça kök veya Türkçe alfabeden üç harf girin; kökün kaynaklı sözcüklerini ve kalıp adaylarını sabit gruplarda görün. Ana akış tek bir büyük arama alanıdır. Altındaki kök kütüphanesi, mevcut 94 kök ailesini ve 324 kaynaklı sözcüğü korur.
 
 Site tamamen statiktir. Python yalnızca geliştirme ve derleme sırasında çalışır. Ziyaretçinin Python’a, bir API’ye veya uygulama sunucusuna ihtiyacı yoktur.
 
@@ -32,7 +32,8 @@ npm test            # derleme + Python ve TypeScript/JavaScript regresyonları
 data/lexicon.json                 Düzenlenebilir kaynaklı sözlük
           |
 pipeline/model.py                TypedDict sözleşmeleri ve giriş doğrulaması
-pipeline/morphology.py           Kökler, kalıplar, biçim kimliği, sözlük önceliği
+pipeline/morphology.py           Arapça ve deneysel Türkçe kalıp uygulaması
+pipeline/catalog.py              Grup sırası, kalıp kimliği ve sözlük önceliği
 pipeline/build.py                Bütün birleşimleri statik JSON'a dönüştürür
           |
 public/data/                     Oluşturulan dosyalar; Git'e eklenmez
@@ -40,6 +41,8 @@ public/data/                     Oluşturulan dosyalar; Git'e eklenmez
 src/model.ts + src/codec.ts       Readonly türler ve JSON sınır doğrulaması
 src/data.ts                      Sürümlü, önbellekli, gerektiğinde dosya yükleme
 src/lookup.ts                    Saf sözcük/kök çözümleme; DOM veya üretim yok
+src/families.ts                  Aynı okunuşlu adayları tek görünüme yansıtır
+src/grouping.ts                  Kanıttan bağımsız sabit kalıp sırası
 src/render.ts                    Sunum; kalıp üretmez, sözlük eşleştirmez
 src/main.ts                      DOM olayları, gezinme ve görünüm durumu
 ```
@@ -48,26 +51,39 @@ Python motoru bağımlılıksız, açık kurallara dayanan bir başlangıç moto
 
 ## Bütün birleşimler
 
-28 desteklenen Arapça harfin bütün sıralı üçlüleri hesaplanır: **28³ = 21.952 birleşim**. Her birleşim için **43 seçili kalıp** değerlendirilir: I–X fiil biçimleri, temel isim adayları ve türemiş fiillerin seçili mastar/ortaçları. IX. biçime edilgen ortaç uydurulmaz.
+İki ayrı kimlik alanının bütün sıralı üçlüleri hesaplanır:
 
-Her kökün dosyası `public/data/roots/XX/XX-YY-ZZ.json` yolundadır. Sayılar, manifestodaki harf sırasının sıfırdan başlayan indisleridir. Başlangıçta yalnızca `manifest.json` ve küçük sözcük arama dizini yüklenir; bir kök seçildiğinde onun dosyası indirilir. Kalıp açıklamaları manifestoda bir kez saklanır; dosyadaki kısa satırlar TypeScript sınırında adlandırılmış nesnelere dönüştürülür.
+- **Arapça: 28³ = 21.952 birleşim.** Tam Arapça harf kimliği korunur; kaynaklı sözlük bu alana bağlıdır.
+- **Deneysel Türkçe: 18.557 birleşim.** 29³ = 24.389 Türkçe üçlüden Arapça okunuş karşılığı olan 18³ = 5.832 üçlü çıkarılır. `j-k-l`, `p-ç-ğ`, `ı-ö-ü` gibi kalan üçlülerin harfleri aynen korunur; Arapça yazım veya sözlük kanıtı uydurulmaz. Ünlüler de kabul edilir.
+
+İki alanda da aynı **43 seçili kalıp** değerlendirilir: I–X fiil biçimleri, temel isim adayları ve türemiş fiillerin seçili mastar/ortaçları. IX. biçime edilgen ortaç uydurulmaz. Bu iki kimlik alanı tek bir kök koleksiyonu gibi birleştirilmez.
+
+`k-t-b` araması bilinen Arapça `كتب` ailesini açar; ayrıca Türkçe kopya sunulmaz. `k-l-m` gibi birden fazla bilinen eşleşme varsa sözcükleri ve kök anlamlarını gösteren seçim sunulur. Bilinen kök yoksa bütün Arapça harf eşleşmelerinin verileri yüklenir. Kalıp kimlikleri ve Türkçe okunuşları aynıysa, örneğin `ş-k-z` için, tek biçim listesi gösterilir. Ayrı Arapça kök kimlikleri açılır bir ayrıntıda; her biçimin Arapça yazım seçenekleri de isteğe bağlı Arapça sütununda korunur. Yazımlardan herhangi biri ham kalıpsa ortak satır uyarılır. Kaynaklı aileler birleştirilmez; ileride üretim farklı okunuşlar verirse seçim korunur. Bu adaylar için de Türkçe kopya üretilmez. Yalnızca Arapça karşılığı olmayan üçlüler deneysel alanda açılır. Sözcük aramasında Nişanyan başlıkları önceliklidir. Eski `mode=turkish` bağlantıları da aynı önceliğe uyar. Her derlemede artık kullanılmayan deneysel kopya dosyaları temizlenir.
+
+Arapça kök dosyaları `public/data/roots/XX/XX-YY-ZZ.json`, deneysel Türkçe dosyalar `public/data/turkish-roots/XX/XX-YY-ZZ.json` yolundadır. Sayılar, ilgili alfabenin manifestodaki sırasının sıfırdan başlayan indisleridir. Başlangıçta yalnızca `manifest.json` ve küçük sözcük arama dizini yüklenir; bir kök seçildiğinde onun dosyası indirilir. Kalıp açıklamaları manifestoda bir kez saklanır; dosyadaki kısa satırlar TypeScript sınırında adlandırılmış nesnelere dönüştürülür. Deneysel adayın Arapça alanı `null` olur.
+
+## Sabit grup ve kalıp sırası
+
+Her kökte aynı sekme sırası kullanılır: **Yapan → Etkilenen → Eylem / süreç → Yer → Araç → Nitelik / durum → Diğer isimler → Fiiller**. Bir defada yalnızca seçilen kategorinin tablosu görünür; seçili sekme kök değiştirirken korunur. Sekmelerde kayıt sayısı gösterilir. Klavyede sağ/sol oklar, Home ve End ile gezinilebilir. Mevcut 43 üretim kalıbının dağılımı sırasıyla **10, 9, 10, 1, 1, 1, 1, 10** şeklindedir. Bunlar gezinme gruplarıdır; kalıbın gerçek anlamı veya kullanımını garanti etmez.
+
+Grupların içinde temel kalıplar I–X sırasında görünür. Kaynaklı kayıt kendi kalıp yuvasına yerleşir ve yeşil kalır; diğer yuvalarda aday gösterilir. Kaynaklılar ve adaylar ayrı listelere ayrılmaz. Üretim kapsamı dışındaki sözlük kalıpları grubun sonunda, bütün kökler için ortak bir kayıt sırasıyla gösterilir. Bir kalıbın birden çok kaynaklı Türkçe karşılığı aynı yuvada korunur.
 
 Veriler deterministiktir; değişmeyen dosyalar yeniden yazılmaz. İçerik sürümü sözlükten ve Python motorundan hesaplanır. Eski ve yeni sürümler karışırsa arayüz sessizce yanlış veri göstermek yerine yükleme hatası verir.
 
 ## Sözlük önceliği ve kanıt
 
 - `data/lexicon.json`, önceki TypeScript seçkisinin kayıpsız taşınmış hâlidir. Kaynak URL’leri, kontrol tarihleri, alt madde bilgileri, özgün örnekler ve köken belirsizlikleri korunmuştur. Bu çalışma kaynak sayfalarını yeniden kontrol etmiş sayılmaz.
-- **Aynı kök ve Arapça biçim** eşleşirse sözlük kaydı varsayımsal adayı kaldırır. Aynı biçimin birden çok Türkçe karşılığı korunur. `âlim`, `allame`, `muallim` gibi aynı anlamsal role sahip farklı biçimler birbirini silmez.
-- Biçim eşleştirmesinde ünlü işaretleri kaldırılır; şedde harf ikizleşmesi olarak korunur. `مُعَلِّم` ve `مُعْلِم` aynı biçim sayılmaz. Ünlüsüz eş yazımlılık aynı anlam veya türetim geçmişini kanıtlamaz.
+- **Aynı Arapça kök ve tanımlanmış kalıp kimliği** eşleşirse sözlük kaydı o adayı kaldırır. Aynı kalıbın birden çok Türkçe karşılığı korunur. `âlim`, `allame`, `muallim` gibi aynı gruptaki farklı biçimler birbirini silmez. Deneysel Türkçe köklere Arapça sözlük kanıtı taşınmaz.
+- Sözlük kalıpları muhafazakâr biçimde eşlenir: editörce verilen isteğe bağlı `formId` ya da tek anlamlı rol/yazım eşleşmesi kullanılır. Ünlüsüz yazım tek başına yeterli değildir; şedde korunur. Örneğin `ilim` kaydı `fa‘l` veya fiil adayını silmez. Kalıbı kesin eşlenemeyen kayıtlar kaybolmaz; ayrı, sabit sözlük kalıbı kimliği alır. Ham sözlük kalıbı etiketi de korunur; bu sınıflandırma kaynak sayfalarının yeniden dilbilimsel incelemesi değildir.
 - Bir sözcüğün seçkide bulunmaması Nişanyan’da veya dilde bulunmadığı anlamına gelmez. Canlı Nişanyan taraması ve bütün sözlüğün içe aktarımı yapılmaz.
-- Türkçe başlık araması `kâtip` / `katip` gibi düzeltme işaretli ünlüleri eşleştirir; `ş/s`, `ç/c`, `ö/o`, `ü/u` ayrımlarını korur. Kök okunuşu birden fazla Arapça köke denk gelirse seçim gösterilir. Tam kök seçimi için Arapça harfler kullanılabilir.
-- Sözlükte bulunmayan Türkçe sözcüklerden etimoloji uydurulmaz. Ekli sözcüklerin Türkçe biçimbilimsel çözümlemesi henüz yoktur; sözlük başlığı veya kök girilmelidir.
+- Türkçe başlık araması `kâtip` / `katip` gibi düzeltme işaretli ünlüleri eşleştirir; `ş/s`, `ç/c`, `ö/o`, `ü/u` ayrımlarını korur. Kök okunuşu farklı sözlük ailelerine denk gelirse seçim gösterilir; aynı hipotetik Türkçe çıktılar tek listede görünür. Tam kök seçimi için Arapça harfler kullanılabilir.
+- Sözlükte bulunmayan Türkçe sözcüklerden etimoloji uydurulmaz. Üç Türkçe harf deneysel giriş olabilir; daha uzun ekli sözcüklerin Türkçe biçimbilimsel çözümlemesi henüz yoktur. Deneysel üçlüler için `â/î/û` gibi harfler başka harfe katlanmaz; 29 harfli Türkçe alfabe esas alınır.
 
 ## Dilbilimsel kapsam
 
 Önhesaplama bütün desteklenen **harf birleşimlerini** kapsar; bütün Arapça sözcükleri veya çekimleri kapsadığı ileri sürülmez. Her kök her kalıbı kullanmaz. I. biçimin orta ünlüsü ve mastarı sözlükseldir; verilen biçimler yalnızca adaydır. IX. biçimin anlam alanı özellikle sınırlıdır.
 
-Zayıf, ikiz ve hemzeli kökler ile belirli VIII. biçim benzeşmeleri **ham kalıp** olarak işaretlenir: gerekli ses ve yazım değişimleri uygulanmamıştır. Dört harfli kökler, düzensiz çoğullar ve bütün çekim paradigmaları kapsamda değildir.
+Zayıf, ikiz ve hemzeli kökler ile belirli VIII. biçim benzeşmeleri **ham kalıp** olarak işaretlenir: harfler doğrudan şablona yerleştirilir; bu motorun henüz uygulamadığı özel ses ve yazım kuralları vardır. Bu, değişiklik uygulanmamasının dilbilimsel olarak doğru olduğu anlamına gelmez. Kök sınıfına dayalı işaretleme ihtiyatlıdır; belirli bir biçim zaten doğru olabilir. Dört harfli kökler, düzensiz çoğullar ve bütün çekim paradigmaları kapsamda değildir.
 
 Üretilen okunuşlar Türkçe harflerle yaklaşık Arapça okunuşlardır. Tarihsel Türkçe alıntı sözcüklerin yazımı ancak kaynaklı kayıttan gösterilir. Yeni bir kökün anlamı bilinmiyorsa ona sözlük anlamı veya kurgusal kullanım cümlesi atanmaz.
 

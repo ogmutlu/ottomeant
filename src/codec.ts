@@ -1,9 +1,12 @@
 /** Untrusted JSON becomes domain values here; casts never replace validation. */
 import { roles, rootClasses } from "./model.js";
+import { isExperimentalRoot } from "./lookup.js";
 import type {
   DictionaryEntry,
   GeneratedForm,
   KnownRoot,
+  Inventory,
+  FormGroupDefinition,
   Manifest,
   Pattern,
   Role,
@@ -40,7 +43,7 @@ function choice<T extends string>(value: unknown, choices: readonly T[]): T {
 }
 function version(data: RecordValue, buildId?: string): void {
   if (
-    data.schemaVersion !== 1 ||
+    data.schemaVersion !== 2 ||
     (buildId !== undefined && data.buildId !== buildId)
   )
     throw new Error("Static data version mismatch; reload after deployment");
@@ -69,16 +72,26 @@ function pattern(value: unknown): Pattern {
     description: text(data.description),
   };
 }
-function dictionaryEntry(value: unknown, key: string): DictionaryEntry {
+function dictionaryEntry(
+  value: unknown,
+  key: string,
+  manifest: Manifest,
+): DictionaryEntry {
   const data = record(value);
   const source = record(data.source);
   const url = new URL(text(source.url));
+  const patternId = text(data.patternId);
+  const selected = [...manifest.patterns, ...manifest.lexicalPatterns].find(
+    (pattern) => pattern.id === patternId,
+  );
   if (
     data.kind !== "dictionary" ||
     data.root !== key ||
     source.dictionary !== "Nişanyan Sözlük" ||
     url.origin !== "https://www.nisanyansozluk.com" ||
-    !url.pathname.startsWith("/kelime/")
+    !url.pathname.startsWith("/kelime/") ||
+    !selected ||
+    selected.role !== data.role
   )
     throw new Error("Invalid dictionary evidence");
   return {
@@ -91,6 +104,7 @@ function dictionaryEntry(value: unknown, key: string): DictionaryEntry {
     turkish: text(data.turkish),
     definition: text(data.definition),
     pattern: text(data.pattern),
+    patternId,
     example: text(data.example),
     source: {
       dictionary: "Nişanyan Sözlük",
@@ -115,6 +129,17 @@ export function decodeManifest(value: unknown): Manifest {
     words: array(record(value).words).map(text),
   }));
   const patterns = array(data.patterns).map(pattern);
+  const lexicalPatterns = array(data.lexicalPatterns).map(pattern);
+  const turkishLetters = array(data.turkishLetters).map(text);
+  const turkishRootCount = count(data.turkishRootCount);
+  const groups: FormGroupDefinition[] = array(data.groups).map((value) => {
+    const item = record(value);
+    return {
+      role: choice(item.role, roles),
+      label: text(item.label),
+      description: text(item.description),
+    };
+  });
   const rootCount = count(data.rootCount);
   if (
     letters.length !== 28 ||
@@ -122,8 +147,19 @@ export function decodeManifest(value: unknown): Manifest {
     letters.some((letter) => [...letter].length !== 1) ||
     readings.length !== letters.length ||
     rootCount !== letters.length ** 3 ||
-    new Set(patterns.map((item) => item.id)).size !== patterns.length ||
-    patterns.length === 0
+    new Set([...patterns, ...lexicalPatterns].map((item) => item.id)).size !==
+      patterns.length + lexicalPatterns.length ||
+    patterns.length === 0 ||
+    turkishLetters.length !== 29 ||
+    new Set(turkishLetters).size !== 29 ||
+    turkishLetters.some((letter) => [...letter].length !== 1) ||
+    turkishRootCount !==
+      turkishLetters.length ** 3 -
+        new Set(readings.filter((reading) => turkishLetters.includes(reading)))
+          .size **
+          3 ||
+    groups.length !== roles.length ||
+    new Set(groups.map((group) => group.role)).size !== roles.length
   )
     throw new Error("Invalid root inventory or patterns");
   const validRoot = (key: string): boolean =>
@@ -140,16 +176,20 @@ export function decodeManifest(value: unknown): Manifest {
   )
     throw new Error("Invalid dictionary inventory");
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     buildId: text(data.buildId),
     engineVersion: text(data.engineVersion),
     letters,
     readings,
+    turkishLetters,
+    turkishRootCount,
     rootCount,
     dictionaryRootCount,
     dictionaryEntryCount,
     generatedFormCount: count(data.generatedFormCount),
     patterns,
+    lexicalPatterns,
+    groups,
     knownRoots,
   };
 }
@@ -175,46 +215,83 @@ export function decodeSearch(value: unknown, manifest: Manifest): SearchIndex {
       words.length
   )
     throw new Error("Incomplete search index");
-  return { schemaVersion: 1, buildId: manifest.buildId, words };
+  return { schemaVersion: 2, buildId: manifest.buildId, words };
 }
 
 export function decodeFamily(
   value: unknown,
   manifest: Manifest,
   key: string,
+  inventory: Inventory = "arabic",
 ): RootFamily {
   const data = record(value);
   version(data, manifest.buildId);
   const familyRoot = root(data.root);
-  if (familyRoot.key !== key)
+  const alphabet =
+    inventory === "arabic" ? manifest.letters : manifest.turkishLetters;
+  if (inventory === "turkish" && !isExperimentalRoot(key, manifest))
+    throw new Error("Duplicate experimental counterpart");
+  if (
+    familyRoot.key !== key ||
+    data.inventory !== inventory ||
+    [...key].length !== 3 ||
+    [...key].some((letter) => !alphabet.includes(letter))
+  )
     throw new Error("Root file contains a different root");
   const generated: GeneratedForm[] = array(data.generated).map((value) => {
     const row = array(value);
     const selected = manifest.patterns[count(row[0])];
-    if (!selected || row.length !== 4 || typeof row[3] !== "boolean")
+    if (
+      !selected ||
+      row.length !== 4 ||
+      typeof row[3] !== "boolean" ||
+      (inventory === "turkish" && (row[1] !== null || row[3] !== false))
+    )
       throw new Error("Invalid generated form");
     return {
       kind: "generated",
       pattern: selected,
-      arabic: text(row[1]),
+      arabic: inventory === "turkish" ? null : text(row[1]),
       reading: text(row[2]),
-      surface: row[3] ? "raw-template" : "regular-template",
+      surface:
+        inventory === "turkish"
+          ? "experimental"
+          : row[3]
+            ? "raw-template"
+            : "regular-template",
     };
   });
   const dictionary = array(data.dictionary).map((value) =>
-    dictionaryEntry(value, key),
+    dictionaryEntry(value, key, manifest),
   );
   const expected =
-    manifest.knownRoots.find((root) => root.key === key)?.words ?? [];
+    inventory === "arabic"
+      ? (manifest.knownRoots.find((root) => root.key === key)?.words ?? [])
+      : [];
+  const filled = new Set([
+    ...dictionary.map((entry) => entry.patternId),
+    ...generated.map((form) => form.pattern.id),
+  ]);
   if (
     dictionary.length !== expected.length ||
     expected.some((word) => !dictionary.some((entry) => entry.word === word)) ||
-    new Set(generated.map((form) => form.pattern.id)).size !== generated.length
+    new Set(generated.map((form) => form.pattern.id)).size !==
+      generated.length ||
+    generated.some((form) =>
+      dictionary.some((entry) => entry.patternId === form.pattern.id),
+    ) ||
+    manifest.patterns.some((pattern) => !filled.has(pattern.id))
   )
     throw new Error("Incomplete root family");
+  const classes = array(data.classes).map((value) =>
+    choice(value, rootClasses),
+  );
+  if (inventory === "turkish" && classes.length !== 0)
+    throw new Error("Experimental roots cannot carry Arabic root classes");
   return {
+    inventory,
     root: familyRoot,
-    classes: array(data.classes).map((value) => choice(value, rootClasses)),
+    classes,
     dictionary,
     generated,
   };

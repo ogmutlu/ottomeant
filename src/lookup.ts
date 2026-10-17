@@ -26,6 +26,27 @@ function normalizeRoot(value: string): string {
     .replace(/[\u064b-\u065f\u0670\sـ-]/g, "");
 }
 
+export function hasArabicCandidates(
+  key: string,
+  readings: readonly string[],
+): boolean {
+  return (
+    [...key].length === 3 &&
+    [...key].every((letter) => readings.includes(letter))
+  );
+}
+
+export function isExperimentalRoot(
+  key: string,
+  manifest: Pick<Manifest, "turkishLetters" | "readings">,
+): boolean {
+  return (
+    [...key].length === 3 &&
+    [...key].every((letter) => manifest.turkishLetters.includes(letter)) &&
+    !hasArabicCandidates(key, manifest.readings)
+  );
+}
+
 export function rootId(key: string, letters: readonly string[]): string {
   const radicals = [...key];
   if (
@@ -43,7 +64,7 @@ export class Lookup {
   readonly #known = new Map<string, KnownRoot>();
   readonly #words = new Map<string, Set<string>>();
   readonly #readings = new Map<string, Set<string>>();
-  readonly #letters = new Map<string, readonly string[]>();
+  readonly #radicals = new Map<string, readonly string[]>();
 
   constructor(
     readonly manifest: Manifest,
@@ -56,7 +77,7 @@ export class Lookup {
     for (const entry of search.words)
       this.#insert(this.#words, normalizeWord(entry.word), entry.root);
     for (const reading of new Set(manifest.readings)) {
-      this.#letters.set(
+      this.#radicals.set(
         reading,
         manifest.letters.filter(
           (_, index) => manifest.readings[index] === reading,
@@ -78,12 +99,29 @@ export class Lookup {
     // k-l-m must expose both قلم and كلم instead of silently choosing one.
     const known = this.#readings.get(root);
     if (known) return this.#resolution([...known]);
-    const options = [...root].map((letter) => this.#letters.get(letter));
-    const [first, second, third] = options;
-    if (!first || !second || !third) return { kind: "not-found", query };
-    return this.#resolution(
-      first.flatMap((a) => second.flatMap((b) => third.map((c) => a + b + c))),
+    const [first, second, third] = [...root].map((letter) =>
+      this.#radicals.get(letter),
     );
+    if (first && second && third) {
+      return this.#resolution(
+        first.flatMap((a) =>
+          second.flatMap((b) => third.map((c) => a + b + c)),
+        ),
+      );
+    }
+    // Only triples outside the Arabic reading inventory need literal generation.
+    return this.experimental(query);
+  }
+
+  experimental(input: string): Resolution {
+    const key = normalizeRoot(input);
+    if (!isExperimentalRoot(key, this.manifest)) {
+      return { kind: "not-found", query: input.trim() };
+    }
+    return {
+      kind: "resolved",
+      candidate: { inventory: "turkish", key, reading: [...key].join("-") },
+    };
   }
 
   suggest(
@@ -116,13 +154,21 @@ export class Lookup {
             this.manifest.readings[this.manifest.letters.indexOf(letter)],
         )
         .join("-");
-      return { key, reading, ...(known ? { known } : {}) };
+      return { inventory: "arabic", key, reading, ...(known ? { known } : {}) };
     });
     const [candidate] = candidates;
     if (!candidate)
       throw new Error("A resolution must contain at least one root");
-    return candidates.length === 1
-      ? { kind: "resolved", candidate }
-      : { kind: "ambiguous", candidates };
+    if (candidates.length === 1) return { kind: "resolved", candidate };
+    // With no lexical evidence, equivalent readings are inspected together rather
+    // than forcing a choice between indistinguishable Turkish labels.
+    if (
+      candidates.every(
+        (item) => !item.known && item.reading === candidate.reading,
+      )
+    ) {
+      return { kind: "equivalent", candidates };
+    }
+    return { kind: "ambiguous", candidates };
   }
 }

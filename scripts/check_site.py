@@ -51,11 +51,15 @@ def main() -> None:
     if not required.issubset(document.ids):
         raise ValueError(f"Missing UI elements: {required - document.ids}")
     get("style.css")
-    for module in ("main", "model", "lookup", "codec", "data", "render"):
+    for module in ("main", "model", "lookup", "codec", "data", "grouping", "families", "render"):
         get(f"dist/{module}.js")
     manifest = json.loads(get("public/data/manifest.json"))
     search = json.loads(get("public/data/search.json"))
-    if manifest["rootCount"] != 21952 or search["buildId"] != manifest["buildId"]:
+    if (
+        manifest["rootCount"] != 21952
+        or manifest["turkishRootCount"] != 18557
+        or search["buildId"] != manifest["buildId"]
+    ):
         raise ValueError("Incomplete or mixed static build")
     # First/last combinations, a known family, and a generated-only family.
     for key in ("ءءء", "ييي", "كتب", "شكز"):
@@ -67,7 +71,18 @@ def main() -> None:
         parse_lexicon(
             {"schemaVersion": 1, "roots": [family["root"]], "entries": family["dictionary"]}
         )
-    print("Static HTTP checks passed: HTML, CSS, 6 modules, catalog, and 4 root families.")
+    for key in ("jkl", "jeo", "pçğ", "ıöü"):
+        identifier = root_id(key, "turkish")
+        family = json.loads(get(f"public/data/turkish-roots/{identifier[:2]}/{identifier}.json"))
+        if (
+            family["inventory"] != "turkish"
+            or family["root"]["key"] != key
+            or family["buildId"] != manifest["buildId"]
+        ):
+            raise ValueError(f"Wrong experimental payload: {key}")
+        if family["dictionary"] or any(row[1] is not None for row in family["generated"]):
+            raise ValueError(f"Invented Arabic spelling or evidence: {key}")
+    print("Static HTTP checks passed: HTML, CSS, 8 modules, catalog, and 8 root families.")
 
 
 if __name__ == "__main__":

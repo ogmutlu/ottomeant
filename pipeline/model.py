@@ -16,6 +16,7 @@ ROLES: tuple[Role, ...] = (
     "verbs",
 )
 RootClass: TypeAlias = Literal["hamzated", "initial-weak", "hollow", "defective", "doubled"]
+Inventory: TypeAlias = Literal["arabic", "turkish"]
 
 
 class Root(TypedDict):
@@ -48,6 +49,11 @@ class DictionaryEntry(TypedDict):
     example: str
     source: DictionarySource
     originNote: NotRequired[str]
+    formId: NotRequired[str]
+
+
+class ClassifiedEntry(DictionaryEntry):
+    patternId: str
 
 
 class Lexicon(TypedDict):
@@ -65,16 +71,23 @@ class PatternMetadata(TypedDict):
     description: str
 
 
+class GroupMetadata(TypedDict):
+    role: Role
+    label: str
+    description: str
+
+
 # Compact on disk; expanded into named TypeScript objects at the fetch boundary.
-GeneratedRow: TypeAlias = tuple[int, str, str, bool]
+GeneratedRow: TypeAlias = tuple[int, str | None, str, bool]
 
 
 class RootFamily(TypedDict):
-    schemaVersion: Literal[1]
+    schemaVersion: Literal[2]
     buildId: str
+    inventory: Inventory
     root: Root
     classes: list[RootClass]
-    dictionary: list[DictionaryEntry]
+    dictionary: list[ClassifiedEntry]
     generated: list[GeneratedRow]
 
 
@@ -83,16 +96,20 @@ class KnownRoot(Root):
 
 
 class Manifest(TypedDict):
-    schemaVersion: Literal[1]
+    schemaVersion: Literal[2]
     buildId: str
     engineVersion: str
     letters: list[str]
     readings: list[str]
+    turkishLetters: list[str]
+    turkishRootCount: int
     rootCount: int
     dictionaryRootCount: int
     dictionaryEntryCount: int
     generatedFormCount: int
     patterns: list[PatternMetadata]
+    lexicalPatterns: list[PatternMetadata]
+    groups: list[GroupMetadata]
     knownRoots: list[KnownRoot]
 
 
@@ -102,13 +119,14 @@ class SearchWord(TypedDict):
 
 
 class SearchIndex(TypedDict):
-    schemaVersion: Literal[1]
+    schemaVersion: Literal[2]
     buildId: str
     words: list[SearchWord]
 
 
 class BuildStats(TypedDict):
     roots: int
+    turkishRoots: int
     patterns: int
     generatedForms: int
     dictionaryEntries: int
@@ -183,6 +201,8 @@ def _entry(value: object) -> DictionaryEntry:
     }
     if "originNote" in data:
         entry["originNote"] = _text(data["originNote"])
+    if "formId" in data:
+        entry["formId"] = _text(data["formId"])
     return entry
 
 

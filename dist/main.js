@@ -1,6 +1,7 @@
 /** DOM wiring and view state. Domain operations live in lookup.ts and Python. */
 import { Catalog } from "./data.js";
 import { Lookup } from "./lookup.js";
+import { familyView, loadEquivalentFamilies } from "./families.js";
 import { renderChoices, renderFamily, renderKnownRoots } from "./render.js";
 function element(selector) {
     const value = document.querySelector(selector);
@@ -19,19 +20,49 @@ const includeGenerated = element("#include-generated");
 const showArabic = element("#show-arabic");
 const suggestions = element("#suggestions");
 const retry = element("#retry");
-let family;
+let active;
 let request = 0;
+let selectedRole = "agent";
 function setStatus(message, error = false) {
     status.textContent = message;
     status.classList.toggle("error", error);
 }
 function paintFamily() {
-    if (family)
-        content.innerHTML = renderFamily(family, includeGenerated.checked);
+    if (active)
+        content.innerHTML = renderFamily(active.family, active.manifest, includeGenerated.checked, selectedRole);
 }
 function queryFromHash() {
-    return new URLSearchParams(location.hash.slice(1)).get("q") ?? "";
+    const params = new URLSearchParams(location.hash.slice(1));
+    // Old mode=turkish bookmarks now use the same Arabic-first resolution.
+    return params.get("q") ?? "";
 }
+function selectCategory(role) {
+    selectedRole = role;
+    paintFamily();
+    document.getElementById(`tab-${role}`)?.focus({ preventScroll: true });
+}
+content.addEventListener("keydown", (event) => {
+    const tab = event.target instanceof Element
+        ? event.target.closest("button[data-role-tab]")
+        : null;
+    if (!active ||
+        !tab ||
+        !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key))
+        return;
+    const groups = active.manifest.groups;
+    const index = groups.findIndex((group) => group.role === tab.dataset.roleTab);
+    const next = event.key === "Home"
+        ? 0
+        : event.key === "End"
+            ? groups.length - 1
+            : (index + (event.key === "ArrowRight" ? 1 : -1) + groups.length) %
+                groups.length;
+    const category = groups[next];
+    if (category) {
+        event.preventDefault();
+        selectCategory(category.role);
+    }
+});
 async function start() {
     retry.hidden = true;
     submit.disabled = true;
@@ -49,7 +80,7 @@ async function start() {
     const lookup = new Lookup(catalog.manifest, catalog.search);
     const manifest = catalog.manifest;
     element("#coverage").textContent =
-        `${manifest.rootCount.toLocaleString("tr")} harf birleşimi · ${manifest.dictionaryRootCount} bilinen kök · ${manifest.dictionaryEntryCount} kaynaklı sözcük`;
+        `${manifest.rootCount.toLocaleString("tr")} Arapça + ${manifest.turkishRootCount.toLocaleString("tr")} deneysel Türkçe birleşim · ${manifest.dictionaryRootCount} bilinen kök`;
     element("#known-count").textContent =
         `${manifest.dictionaryRootCount} kök / ${manifest.dictionaryEntryCount} sözcük`;
     const rootsContainer = element("#known-roots");
@@ -69,7 +100,7 @@ async function start() {
         const current = ++request;
         input.value = query;
         choices.replaceChildren();
-        family = undefined;
+        active = undefined;
         results.hidden = true;
         results.setAttribute("aria-busy", "false");
         const resolution = lookup.resolve(query);
@@ -78,23 +109,35 @@ async function start() {
                 setStatus("Bir Türkçe sözcük veya üç kök harfiyle başlayın.");
                 return;
             case "not-found":
-                setStatus("Sözcük yerel seçkide bulunamadı. Bir sözlük başlığı veya k-t-b gibi üç kök harfi deneyin.");
+                setStatus("Sözcük yerel seçkide bulunamadı. Bir sözlük başlığı veya Türkçe alfabeden üç harf girin; q, w ve x desteklenmez.");
                 return;
             case "ambiguous":
                 setStatus(`${resolution.candidates.length} olası kök bulundu.`);
                 choices.innerHTML = renderChoices(resolution.candidates);
                 return;
-            case "resolved": {
+            case "resolved":
+            case "equivalent": {
                 results.setAttribute("aria-busy", "true");
                 setStatus("Kökün biçimleri yükleniyor…");
                 try {
-                    const loaded = await catalog.family(resolution.candidate.key);
+                    const selection = resolution.kind === "resolved"
+                        ? {
+                            kind: "ready",
+                            view: familyView(await catalog.family(resolution.candidate.key, resolution.candidate.inventory)),
+                        }
+                        : await loadEquivalentFamilies(resolution.candidates, (candidate) => catalog.family(candidate.key, candidate.inventory));
                     if (current !== request)
                         return;
-                    family = loaded;
+                    if (selection.kind === "ambiguous") {
+                        setStatus(`${selection.candidates.length} farklı kök ailesi bulundu.`);
+                        choices.innerHTML = renderChoices(selection.candidates);
+                        return;
+                    }
+                    const loaded = selection.view;
+                    active = { family: loaded, manifest };
                     paintFamily();
                     results.hidden = false;
-                    setStatus(`${loaded.root.reading}: ${loaded.dictionary.length} sözlük kaydı, ${loaded.generated.length} üretilen aday.`);
+                    setStatus(`${loaded.reading}: ${loaded.dictionary.length} sözlük kaydı, ${loaded.generated.length} varsayımsal biçim.`);
                 }
                 catch (error) {
                     if (current !== request)
@@ -110,7 +153,8 @@ async function start() {
         }
     }
     function navigate(query) {
-        const hash = "#" + new URLSearchParams({ q: query }).toString();
+        const params = new URLSearchParams({ q: query });
+        const hash = "#" + params.toString();
         if (location.hash === hash)
             void search(query);
         else
@@ -128,6 +172,15 @@ async function start() {
         }));
     });
     document.addEventListener("click", (event) => {
+        const tab = event.target instanceof Element
+            ? event.target.closest("button[data-role-tab]")
+            : null;
+        if (tab && active) {
+            const category = active.manifest.groups.find((group) => group.role === tab.dataset.roleTab);
+            if (category)
+                selectCategory(category.role);
+            return;
+        }
         const button = event.target instanceof Element
             ? event.target.closest("button[data-query]")
             : null;
@@ -138,6 +191,8 @@ async function start() {
         form.scrollIntoView({ block: "center", behavior: "smooth" });
     });
     window.addEventListener("hashchange", () => {
+        if (!new URLSearchParams(location.hash.slice(1)).has("q"))
+            return;
         void search(queryFromHash());
     });
     submit.disabled = false;

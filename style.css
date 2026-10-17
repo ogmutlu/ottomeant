@@ -242,6 +242,42 @@ h1 em {
   grid-column: 1 / -1;
   line-height: 1.7;
 }
+.choice strong {
+  line-height: 1.6;
+}
+.choice .choice-reading {
+  font-size: 11px;
+}
+.arabic-alternatives {
+  margin: 18px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.arabic-alternatives summary,
+.form-spellings summary {
+  cursor: pointer;
+}
+.arabic-alternatives button {
+  margin: 4px 8px 4px 0;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--white);
+  font:
+    23px Georgia,
+    serif;
+}
+.form-spellings summary {
+  font:
+    12px system-ui,
+    sans-serif;
+}
+.form-spellings span {
+  display: block;
+  white-space: nowrap;
+  margin-top: 8px;
+}
 #results {
   border-top: 1px solid var(--line);
   padding: 22px 0 15px;
@@ -291,6 +327,47 @@ input[type="checkbox"] {
 }
 .form-section {
   margin-bottom: 32px;
+  scroll-margin-top: 24px;
+}
+.category-tabs {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  margin: 20px 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+.category-tabs button {
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  padding: 12px 2px;
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.category-tabs button:hover {
+  color: var(--green);
+}
+.category-tabs button[aria-selected="true"] {
+  border-bottom-color: var(--green);
+  color: var(--green);
+  font-weight: 600;
+}
+.category-tabs span {
+  color: var(--muted);
+  font-size: 10px;
+  margin-left: 4px;
+}
+.dictionary-row {
+  background: #f0f6e9;
+}
+.dictionary-row .form-word {
+  color: #365b32;
+}
+.empty-group {
+  color: var(--muted);
+  font-size: 12px;
+  padding: 10px 0;
 }
 h3 {
   font-size: 16px;

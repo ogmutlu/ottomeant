@@ -1,7 +1,7 @@
 /** IO only: lazy static JSON loading, validation, versioning, and caching. */
 import { decodeFamily, decodeManifest, decodeSearch } from "./codec.js";
-import { rootId } from "./lookup.js";
-import type { Manifest, RootFamily, SearchIndex } from "./model.js";
+import { isExperimentalRoot, rootId } from "./lookup.js";
+import type { Inventory, Manifest, RootFamily, SearchIndex } from "./model.js";
 
 export type Fetcher = (url: URL, init?: RequestInit) => Promise<Response>;
 
@@ -27,22 +27,31 @@ export class Catalog {
     return new Catalog(manifest, search, baseUrl, fetcher);
   }
 
-  family(key: string): Promise<RootFamily> {
-    const cached = this.#families.get(key);
+  family(key: string, inventory: Inventory = "arabic"): Promise<RootFamily> {
+    if (inventory === "turkish" && !isExperimentalRoot(key, this.manifest)) {
+      throw new Error("An Arabic counterpart already exists for this root");
+    }
+    const identity = `${inventory}:${key}`;
+    const cached = this.#families.get(identity);
     if (cached) return cached;
-    const id = rootId(key, this.manifest.letters);
+    const alphabet =
+      inventory === "arabic"
+        ? this.manifest.letters
+        : this.manifest.turkishLetters;
+    const id = rootId(key, alphabet);
+    const directory = inventory === "arabic" ? "roots" : "turkish-roots";
     const url = versionedUrl(
-      `roots/${id.slice(0, 2)}/${id}.json`,
+      `${directory}/${id.slice(0, 2)}/${id}.json`,
       this.baseUrl,
       this.manifest.buildId,
     );
     const pending = readJson(url, this.fetcher).then((value) =>
-      decodeFamily(value, this.manifest, key),
+      decodeFamily(value, this.manifest, key, inventory),
     );
-    this.#families.set(key, pending);
+    this.#families.set(identity, pending);
     // Failed requests are retryable after a network or deployment error.
     void pending.catch(() => {
-      this.#families.delete(key);
+      this.#families.delete(identity);
     });
     return pending;
   }

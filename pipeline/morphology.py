@@ -9,9 +9,10 @@ import re
 import unicodedata
 from dataclasses import dataclass
 
-from .model import DictionaryEntry, GeneratedRow, PatternMetadata, Role, RootClass
+from .model import GeneratedRow, Inventory, PatternMetadata, Role, RootClass
 
 LETTERS = tuple("ءبتثجحخدذرزسشصضطظعغفقكلمنهوي")
+TURKISH_LETTERS = tuple("abcçdefgğhıijklmnoöprsştuüvyz")
 READINGS = (
     "’",
     "b",
@@ -43,7 +44,8 @@ READINGS = (
     "y",
 )
 ROMAN = dict(zip(LETTERS, READINGS, strict=True))
-ENGINE_VERSION = "1"
+ARABIC_READINGS = frozenset(READINGS)
+ENGINE_VERSION = "3"
 
 
 @dataclass(frozen=True)
@@ -244,14 +246,24 @@ def is_root(root: str) -> bool:
     return len(root) == 3 and all(letter in ROMAN for letter in root)
 
 
+def is_experimental_root(root: str) -> bool:
+    """Only literal Turkish triples without an Arabic transliteration counterpart."""
+    return (
+        len(root) == 3
+        and all(letter in TURKISH_LETTERS for letter in root)
+        and not all(letter in ARABIC_READINGS for letter in root)
+    )
+
+
 def reading_of(root: str) -> str:
     return "-".join(ROMAN[letter] for letter in root)
 
 
-def root_id(root: str) -> str:
-    if not is_root(root):
-        raise ValueError(f"Unsupported three-radical root: {root!r}")
-    return "-".join(f"{LETTERS.index(letter):02}" for letter in root)
+def root_id(root: str, inventory: Inventory = "arabic") -> str:
+    alphabet = LETTERS if inventory == "arabic" else TURKISH_LETTERS
+    if len(root) != 3 or any(letter not in alphabet for letter in root):
+        raise ValueError(f"Unsupported {inventory} root: {root!r}")
+    return "-".join(f"{alphabet.index(letter):02}" for letter in root)
 
 
 def root_classes(root: str) -> list[RootClass]:
@@ -290,20 +302,27 @@ def instantiate(template: str, root: str, *, roman: bool = False) -> str:
     )
 
 
-def generate(root: str, dictionary: list[DictionaryEntry]) -> list[GeneratedRow]:
-    """A dictionary form overrides every generated spelling match in THIS root.
-
-    All sourced Turkish variants survive; broad roles are never merge keys.
-    """
+def generate(root: str, overridden: frozenset[str] = frozenset()) -> list[GeneratedRow]:
+    """Generate the unfilled pattern slots of a validated Arabic root."""
     if not is_root(root):
         raise ValueError(f"Unsupported three-radical root: {root!r}")
-    attested = {form_key(entry["arabic"]) for entry in dictionary if entry["root"] == root}
     exceptional = bool(root_classes(root))
     rows: list[GeneratedRow] = []
     for index, pattern in enumerate(PATTERNS):
         arabic = instantiate(pattern.arabic, root)
-        if form_key(arabic) in attested:
+        if pattern.id in overridden:
             continue
         raw = exceptional or (pattern.id.startswith("VIII.") and root[0] in "تثدذزصضطظ")
         rows.append((index, arabic, instantiate(pattern.reading, root, roman=True), raw))
     return rows
+
+
+def generate_turkish(root: str) -> list[GeneratedRow]:
+    """Literal Turkish-letter substitution; no Arabic identity or spelling is inferred."""
+    root_id(root, "turkish")
+    if not is_experimental_root(root):
+        raise ValueError(f"An Arabic counterpart already exists for {root!r}")
+    return [
+        (index, None, instantiate(pattern.reading, root), False)
+        for index, pattern in enumerate(PATTERNS)
+    ]

@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#214e41" />
     <meta
       name="description"
-      content="Bir Türkçe sözcük veya Arapça kök girin; Nişanyan kayıtlarını ve aynı kökten üretilen biçimleri keşfedin."
+      content="Bir Türkçe sözcük veya Arapça kök girin; Nişanyan kayıtlarını ve aynı kökten varsayımsal biçimleri keşfedin."
     />
     <title>Ottomeant · Bir sözcük, bir kök, birçok biçim.</title>
     <link rel="stylesheet" href="style.css" />
@@ -22,9 +22,8 @@
       </nav>
     </header>
     <main>
-      <section class="search-hero" aria-labelledby="search-title">
+      <section class="search-hero" aria-label="Sözcük ve kök arama">
         <p class="eyebrow">TÜRKÇE SÖZCÜKLERİN ARAPÇA KÖKLERİ</p>
-        <h1 id="search-title">Bir sözcük.<br /><em>Birçok biçim.</em></h1>
         <p class="intro">
           Bir Türkçe sözcük veya kök girin. Aynı kökten gelen sözcükleri ve
           olası biçimleri görün.
@@ -77,8 +76,8 @@
       >
         <div class="result-options">
           <label
-            ><input id="include-generated" type="checkbox" checked /> Üretilen
-            adaylar</label
+            ><input id="include-generated" type="checkbox" checked />
+            Varsayımsal</label
           ><label
             ><input id="show-arabic" type="checkbox" /> Arapça yazımları
             göster</label
@@ -117,28 +116,33 @@
           Seçki bütün sözlüğü kapsamaz; arama Nişanyan’ı canlı taramaz.
         </p>
         <p>
-          Diğer biçimler Arapça kalıplardan üretilen adaylardır. Bir adayın
-          Türkçede veya Arapçada kullanıldığı ileri sürülmez. Türkçe harfli
-          okunuş, yerleşik bir Türkçe sözcük yazımı değildir. Kökün anlamı
-          bilinmiyorsa üretilen biçimlere sözlük anlamı verilmez.
+          Diğer biçimler Arapça kalıplara dayalı varsayımsal biçimlerdir. Bir
+          biçimin Türkçede veya Arapçada kullanıldığı ileri sürülmez. Türkçe
+          harfli okunuş, yerleşik bir Türkçe sözcük yazımı değildir. Kökün
+          anlamı bilinmiyorsa varsayımsal biçimlere sözlük anlamı verilmez.
         </p>
         <p>
           Sözlükte aynı kök ve Arapça biçim için kayıt varsa kaynaklı sözcük
-          gösterilir; karşılık gelen aday kaldırılır. Aynı biçimin farklı Türkçe
-          sözcükleri korunur. Eşleştirmede ünlü işaretleri kaldırılır, şedde
-          korunur; ünlüsüz eş yazımlılık aynı anlamı kanıtlamaz.
+          gösterilir; tanımlanan aynı kalıbın adayı kaldırılır. Aynı biçimin
+          farklı Türkçe sözcükleri korunur. Yalnızca ünlüsüz yazım benzerliğiyle
+          farklı kalıplar birleştirilmez. Kalıbı güvenle eşlenemeyen kayıtlar da
+          kendi gruplarında gösterilir.
         </p>
         <p>
-          Desteklenen alan 28 harfin üçlü, sıralı birleşimleri ve I–X fiil
-          kalıplarıyla seçili isim kalıplarıdır. Dört harfli kökler, bütün
-          çekimler ve bütün mastar/çoğul kalıpları kapsamda değildir. Zayıf,
-          ikiz ve hemzeli kökler ile gereken VIII. biçim benzeşmeleri ham kalıp
-          olarak işaretlenir.
+          28 Arapça harfin bütün üçlü birleşimleri ve Arapça karşılığı olmayan
+          Türkçe harfli üçlüler önceden hesaplanır. Arapça adayları bulunan
+          okunuşlar için ayrıca deneysel Türkçe kopya gösterilmez. Deneysel
+          birleşimlere Arapça yazım atanmaz. I–X fiil kalıpları ve seçili isim
+          kalıpları kullanılır. Dört harfli kökler, bütün çekimler ve bütün
+          mastar/çoğul kalıpları kapsamda değildir. Zayıf, ikiz ve hemzeli
+          kökler ile gereken VIII. biçim benzeşmeleri ham kalıp olarak
+          işaretlenir.
         </p>
         <p>
           Türkçe okunuş bazı Arapça harf ayrımlarını birleştirir. Birden fazla
-          olası kök varsa seçim sunulur; tam seçim için Arapça kök harfleri
-          kullanılabilir.
+          bilinen kök varsa seçim sunulur; tam seçim için Arapça kök harfleri
+          kullanılabilir. Arapça aday bulunamazsa Türkçe harfler aynen korunarak
+          deneysel birleşim açılır; ünlüler de kabul edilir.
         </p>
       </details>
     </main>

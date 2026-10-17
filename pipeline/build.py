@@ -8,6 +8,7 @@ from collections import defaultdict
 from itertools import product
 from pathlib import Path
 
+from .catalog import GROUPS, classify, lexical_patterns
 from .model import (
     BuildStats,
     DictionaryEntry,
@@ -23,7 +24,10 @@ from .morphology import (
     LETTERS,
     PATTERNS,
     READINGS,
+    TURKISH_LETTERS,
     generate,
+    generate_turkish,
+    is_experimental_root,
     is_root,
     reading_of,
     root_classes,
@@ -31,7 +35,6 @@ from .morphology import (
 )
 
 PROJECT = Path(__file__).resolve().parent.parent
-SCHEMA_VERSION = 1
 
 
 def write_json(path: Path, value: object) -> int:
@@ -75,6 +78,7 @@ def build(source: Path, output: Path) -> BuildStats:
         Path(__file__).read_bytes(),
         Path(__file__).with_name("model.py").read_bytes(),
         Path(__file__).with_name("morphology.py").read_bytes(),
+        Path(__file__).with_name("catalog.py").read_bytes(),
     ):
         digest.update(content)
     build_id = digest.hexdigest()[:16]
@@ -88,10 +92,12 @@ def build(source: Path, output: Path) -> BuildStats:
     for radicals in product(LETTERS, repeat=3):
         key = "".join(radicals)
         identifier = root_id(key)
-        generated = generate(key, entries[key])
+        dictionary = [classify(entry) for entry in entries[key]]
+        generated = generate(key, frozenset(entry["patternId"] for entry in dictionary))
         payload: RootFamily = {
-            "schemaVersion": 1,
+            "schemaVersion": 2,
             "buildId": build_id,
+            "inventory": "arabic",
             "root": known.get(
                 key,
                 {
@@ -102,14 +108,42 @@ def build(source: Path, output: Path) -> BuildStats:
                 },
             ),
             "classes": root_classes(key),
-            "dictionary": entries[key],
+            "dictionary": dictionary,
             "generated": generated,
         }
         total_bytes += write_json(output / "roots" / identifier[:2] / f"{identifier}.json", payload)
         generated_count += len(generated)
 
+    turkish_count = 0
+    for radicals in product(TURKISH_LETTERS, repeat=3):
+        key = "".join(radicals)
+        identifier = root_id(key, "turkish")
+        path = output / "turkish-roots" / identifier[:2] / f"{identifier}.json"
+        if not is_experimental_root(key):
+            # Remove obsolete, reproducible artifacts from the previous full grid.
+            path.unlink(missing_ok=True)
+            continue
+        turkish_count += 1
+        generated = generate_turkish(key)
+        payload = {
+            "schemaVersion": 2,
+            "buildId": build_id,
+            "inventory": "turkish",
+            "root": {
+                "key": key,
+                "reading": "-".join(key),
+                "title": "Deneysel Türkçe harfli kök",
+                "meaning": "Bu harf birleşimine kalıplar deneysel olarak uygulanmıştır; kökün kullanımı ve anlamı doğrulanmamıştır.",
+            },
+            "classes": [],
+            "dictionary": [],
+            "generated": generated,
+        }
+        total_bytes += write_json(path, payload)
+        generated_count += len(generated)
+
     search: SearchIndex = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "buildId": build_id,
         "words": [{"word": entry["word"], "root": entry["root"]} for entry in lexicon["entries"]],
     }
@@ -119,22 +153,27 @@ def build(source: Path, output: Path) -> BuildStats:
         for root in lexicon["roots"]
     ]
     manifest: Manifest = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "buildId": build_id,
         "engineVersion": ENGINE_VERSION,
         "letters": list(LETTERS),
         "readings": list(READINGS),
+        "turkishLetters": list(TURKISH_LETTERS),
+        "turkishRootCount": turkish_count,
         "rootCount": len(LETTERS) ** 3,
         "dictionaryRootCount": len(known),
         "dictionaryEntryCount": len(lexicon["entries"]),
         "generatedFormCount": generated_count,
         "patterns": [pattern.metadata() for pattern in PATTERNS],
+        "lexicalPatterns": lexical_patterns(lexicon["entries"]),
+        "groups": list(GROUPS),
         "knownRoots": known_roots,
     }
     # Publish manifest last, so its version only describes a completed build.
     total_bytes += write_json(output / "manifest.json", manifest)
     return {
         "roots": len(LETTERS) ** 3,
+        "turkishRoots": turkish_count,
         "patterns": len(PATTERNS),
         "generatedForms": generated_count,
         "dictionaryEntries": len(lexicon["entries"]),
