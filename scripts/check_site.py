@@ -62,7 +62,7 @@ def main() -> None:
     ):
         raise ValueError("Incomplete or mixed static build")
     # First/last combinations, a known family, and a generated-only family.
-    for key in ("ءءء", "ييي", "كتب", "شكز"):
+    for key in ("ءءء", "ييي", "كتب", "شكز", "فتش", "ثبت"):
         identifier = root_id(key)
         family = json.loads(get(f"public/data/roots/{identifier[:2]}/{identifier}.json"))
         if family["root"]["key"] != key or family["buildId"] != manifest["buildId"]:
@@ -82,7 +82,7 @@ def main() -> None:
             raise ValueError(f"Wrong experimental payload: {key}")
         if family["dictionary"] or any(row[1] is not None for row in family["generated"]):
             raise ValueError(f"Invented Arabic spelling or evidence: {key}")
-    print("Static HTTP checks passed: HTML, CSS, 8 modules, catalog, and 8 root families.")
+    print("Static HTTP checks passed: HTML, CSS, 8 modules, catalog, and 10 root families.")
 
 
 if __name__ == "__main__":

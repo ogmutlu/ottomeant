@@ -1,6 +1,6 @@
 # Ottomeant
 
-Bir Türkçe sözcük, Arapça kök veya Türkçe alfabeden üç harf girin; kökün kaynaklı sözcüklerini ve kalıp adaylarını sabit gruplarda görün. Ana akış tek bir büyük arama alanıdır. Altındaki kök kütüphanesi, mevcut 94 kök ailesini ve 324 kaynaklı sözcüğü korur.
+Bir Türkçe sözcük, Arapça kök veya Türkçe alfabeden üç harf girin; kökün kaynaklı sözcüklerini ve varsayımsal biçimlerini sabit gruplarda görün. Ana akış tek bir büyük arama alanıdır. Altındaki kök kütüphanesinde 114 kök ailesi ve 391 Nişanyan kaynaklı sözcük bulunur.
 
 Site tamamen statiktir. Python yalnızca geliştirme ve derleme sırasında çalışır. Ziyaretçinin Python’a, bir API’ye veya uygulama sunucusuna ihtiyacı yoktur.
 
@@ -72,12 +72,19 @@ Veriler deterministiktir; değişmeyen dosyalar yeniden yazılmaz. İçerik sür
 
 ## Sözlük önceliği ve kanıt
 
-- `data/lexicon.json`, önceki TypeScript seçkisinin kayıpsız taşınmış hâlidir. Kaynak URL’leri, kontrol tarihleri, alt madde bilgileri, özgün örnekler ve köken belirsizlikleri korunmuştur. Bu çalışma kaynak sayfalarını yeniden kontrol etmiş sayılmaz.
+- `data/lexicon.json`, önceki TypeScript seçkisindeki 94 kök ve 324 kaydı korur. Bu kayıtların kaynak URL’leri, kontrol tarihleri, alt madde bilgileri, özgün örnekleri ve köken belirsizlikleri değiştirilmemiştir; yeniden kontrol edilmiş sayılmazlar.
+- 18 Ekim 2026 genişletmesi 20 kök ve 67 sözcük ekler. Eklerin kökleri, Arapça yazımları ve kalıp açıklamaları Nişanyan’ın resmî madde sayfalarından kontrol edilmiştir. Tek sözlük kaynağı Nişanyan’dır. Ayrıntılar ve yeni sözcükler [veri notlarında](data/README.md) yer alır.
 - **Aynı Arapça kök ve tanımlanmış kalıp kimliği** eşleşirse sözlük kaydı o adayı kaldırır. Aynı kalıbın birden çok Türkçe karşılığı korunur. `âlim`, `allame`, `muallim` gibi aynı gruptaki farklı biçimler birbirini silmez. Deneysel Türkçe köklere Arapça sözlük kanıtı taşınmaz.
 - Sözlük kalıpları muhafazakâr biçimde eşlenir: editörce verilen isteğe bağlı `formId` ya da tek anlamlı rol/yazım eşleşmesi kullanılır. Ünlüsüz yazım tek başına yeterli değildir; şedde korunur. Örneğin `ilim` kaydı `fa‘l` veya fiil adayını silmez. Kalıbı kesin eşlenemeyen kayıtlar kaybolmaz; ayrı, sabit sözlük kalıbı kimliği alır. Ham sözlük kalıbı etiketi de korunur; bu sınıflandırma kaynak sayfalarının yeniden dilbilimsel incelemesi değildir.
 - Bir sözcüğün seçkide bulunmaması Nişanyan’da veya dilde bulunmadığı anlamına gelmez. Canlı Nişanyan taraması ve bütün sözlüğün içe aktarımı yapılmaz.
 - Türkçe başlık araması `kâtip` / `katip` gibi düzeltme işaretli ünlüleri eşleştirir; `ş/s`, `ç/c`, `ö/o`, `ü/u` ayrımlarını korur. Kök okunuşu farklı sözlük ailelerine denk gelirse seçim gösterilir; aynı hipotetik Türkçe çıktılar tek listede görünür. Tam kök seçimi için Arapça harfler kullanılabilir.
 - Sözlükte bulunmayan Türkçe sözcüklerden etimoloji uydurulmaz. Üç Türkçe harf deneysel giriş olabilir; daha uzun ekli sözcüklerin Türkçe biçimbilimsel çözümlemesi henüz yoktur. Deneysel üçlüler için `â/î/û` gibi harfler başka harfe katlanmaz; 29 harfli Türkçe alfabe esas alınır.
+
+## Sözcükten köke arama
+
+Kök harflerinden biçim üretmek ile rastgele bir Türkçe sözcüğün tarihsel kökünü bulmak ayrı işlemlerdir. Arama şu anda kaynaklı başlıkları ve doğrudan üç harfli kök girişlerini çözer. Örneğin `teftiş` ve `müfettiş` aynı `فتش` ailesine gider; bu eşleme sözlük kaydından gelir.
+
+Sonraki katman, Türkçe ekli biçimleri sözlük başlıklarına çözümlemek ve ardından mevcut kök bağlantısını kullanmaktır. [Zemberek](https://github.com/ahmetaa/zemberek-nlp) Türkçe biçimbilimsel çözümleme sağlar; Arapça etimolojik kök bağlantısı yine Nişanyan’dan gelmelidir. Sözlük dışı girdiler için kalıpları tersine eşlemek birden fazla **varsayımsal kök** verebilir. Türkçedeki ses değişimleri ve Arapça harf ayrımlarının kaybı nedeniyle bunlar sözlük kanıtı sayılamaz. Ters eşleme ve Türkçe ek çözümlemesi henüz uygulanmamıştır. Sözlük/kök dizini Python’da önceden hazırlanıp TypeScript’te aranarak statik barındırma korunabilir.
 
 ## Dilbilimsel kapsam
 

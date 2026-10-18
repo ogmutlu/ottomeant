@@ -9,10 +9,10 @@
     "data:build": "uv run --locked python -m pipeline",
     "check": "npm run check:ts && npm run check:python",
     "check:ts": "tsc -p tsconfig.json --noEmit",
-    "check:python": "uv run --locked ruff check pipeline tests/python scripts/check_site.py && uv run --locked ty check pipeline tests/python scripts/check_site.py",
+    "check:python": "uv run --locked ruff check pipeline tests/python scripts/check_site.py scripts/inspect_nisanyan.py && uv run --locked ty check pipeline tests/python scripts/check_site.py scripts/inspect_nisanyan.py",
     "dev": "bash serve.sh",
     "test": "npm run build && uv run --locked python -m unittest discover -s tests/python -v && node --test --test-isolation=none tests/*.test.mjs",
-    "format": "prettier --write src 'tests/*.mjs' index.html style.css package.json tsconfig.json README.md && uv run --locked ruff format pipeline tests/python scripts/check_site.py",
+    "format": "prettier --write src 'tests/*.mjs' index.html style.css package.json tsconfig.json README.md && uv run --locked ruff format pipeline tests/python scripts/check_site.py scripts/inspect_nisanyan.py",
     "serve": "bash serve.sh"
   },
   "devDependencies": {

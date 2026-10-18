@@ -22,9 +22,38 @@ from pipeline.morphology import (
     root_classes,
     root_id,
 )
+from scripts.inspect_nisanyan import read_page
 
 
 class MorphologyTests(unittest.TestCase):
+    def test_new_dictionary_patterns_override_hypotheticals_with_nisanyan_sources(self) -> None:
+        lexicon = load_lexicon(PROJECT / "data/lexicon.json")
+        dictionary = [entry for entry in lexicon["entries"] if entry["root"] == "فتش"]
+        self.assertEqual({entry["word"] for entry in dictionary}, {"teftiş", "müfettiş"})
+        self.assertEqual(
+            {classify(entry)["patternId"] for entry in dictionary}, {"II.masdar", "II.agent"}
+        )
+        self.assertTrue(
+            all(entry["source"]["dictionary"] == "Nişanyan Sözlük" for entry in lexicon["entries"])
+        )
+        generated = generate("فتش", frozenset(classify(entry)["patternId"] for entry in dictionary))
+        self.assertTrue(
+            {"II.masdar", "II.agent"}.isdisjoint(PATTERNS[row[0]].id for row in generated)
+        )
+
+    def test_official_metadata_reader_rejects_empty_and_mismatched_pages(self) -> None:
+        page = '<meta name="og:title" content="teftiş - Nişanyan Sözlük"><meta name="description" content="Arapça √ftş &amp; test">'
+        entry = read_page("teftiş", page)
+        self.assertEqual(entry.description, "Arapça √ftş & test")
+        self.assertEqual(entry.url, "https://www.nisanyansozluk.com/kelime/tefti%C5%9F")
+        for invalid in (
+            "",
+            '<meta name="og:title" content="teftiş - Nişanyan Sözlük">',
+            page.replace("teftiş -", "başka -"),
+        ):
+            with self.assertRaises(ValueError):
+                read_page("teftiş", invalid)
+
     def test_dictionary_overrides_same_root_and_spelling_without_losing_variants(self) -> None:
         lexicon = load_lexicon(PROJECT / "data/lexicon.json")
         dictionary = [entry for entry in lexicon["entries"] if entry["root"] == "كتب"]

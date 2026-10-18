@@ -658,6 +658,146 @@
       "title": "izin ailesi",
       "meaning": "bir işi yapmaya veya bir yere girmeye verilen onay",
       "sourceRoot": "ˀḏn"
+    },
+    {
+      "key": "فتش",
+      "reading": "f-t-ş",
+      "title": "Denetlemek",
+      "meaning": "inceleme, soruşturma ve denetleme",
+      "sourceRoot": "ftş"
+    },
+    {
+      "key": "شكل",
+      "reading": "ş-k-l",
+      "title": "Biçimlenmek",
+      "meaning": "biçim verme, oluşturma ve oluşma",
+      "sourceRoot": "şkl"
+    },
+    {
+      "key": "ثبت",
+      "reading": "s-b-t",
+      "title": "Sabit olmak",
+      "meaning": "yerinde durma, kararlılık ve kesinleştirme",
+      "sourceRoot": "s̱bt"
+    },
+    {
+      "key": "مثل",
+      "reading": "m-s-l",
+      "title": "Benzemek",
+      "meaning": "benzerlik, örnek ve temsil",
+      "sourceRoot": "ms̱l"
+    },
+    {
+      "key": "دوم",
+      "reading": "d-v-m",
+      "title": "Sürmek",
+      "meaning": "süreklilik ve devam ettirme",
+      "sourceRoot": "dwm"
+    },
+    {
+      "key": "عقب",
+      "reading": "a-k-b",
+      "title": "İzlemek",
+      "meaning": "ardından gelme, takip ve sonuç",
+      "sourceRoot": "ˁḳb"
+    },
+    {
+      "key": "حرر",
+      "reading": "h-r-r",
+      "title": "Serbest bırakmak / yazmak",
+      "meaning": "özgürlük, yazıya geçirme ve yayımlama",
+      "sourceRoot": "ḥrr"
+    },
+    {
+      "key": "ءمر",
+      "reading": "’-m-r",
+      "title": "Buyurmak",
+      "meaning": "emir verme ve görevlendirme",
+      "sourceRoot": "ˀmr"
+    },
+    {
+      "key": "حبب",
+      "reading": "h-b-b",
+      "title": "Sevmek",
+      "meaning": "sevgi, dostluk ve yakınlık",
+      "sourceRoot": "ḥbb"
+    },
+    {
+      "key": "خدم",
+      "reading": "h-d-m",
+      "title": "Hizmet etmek",
+      "meaning": "hizmet, çalışma ve çalıştırma",
+      "sourceRoot": "χdm"
+    },
+    {
+      "key": "ضبط",
+      "reading": "d-b-t",
+      "title": "Kaydetmek / denetlemek",
+      "meaning": "kayıt, koruma ve düzeni sağlama",
+      "sourceRoot": "ḍbṭ"
+    },
+    {
+      "key": "جهل",
+      "reading": "c-h-l",
+      "title": "Bilmemek",
+      "meaning": "bilgisizlik ve bilinmeme",
+      "sourceRoot": "chl"
+    },
+    {
+      "key": "عرف",
+      "reading": "a-r-f",
+      "title": "Bilmek / tanımak",
+      "meaning": "tanıma, bilgi, beceri ve açıklama",
+      "sourceRoot": "ˁrf"
+    },
+    {
+      "key": "فرق",
+      "reading": "f-r-k",
+      "title": "Ayırmak",
+      "meaning": "ayrım, bölünme ve ayırma",
+      "sourceRoot": "frḳ"
+    },
+    {
+      "key": "شرح",
+      "reading": "ş-r-h",
+      "title": "Açıklamak",
+      "meaning": "açma, açıklama ve yorumlama",
+      "sourceRoot": "şrḥ"
+    },
+    {
+      "key": "نشر",
+      "reading": "n-ş-r",
+      "title": "Yayılmak",
+      "meaning": "yayılma ve dağıtma",
+      "sourceRoot": "nşr"
+    },
+    {
+      "key": "كشف",
+      "reading": "k-ş-f",
+      "title": "Ortaya çıkarmak",
+      "meaning": "bulma, açılma ve ortaya çıkma",
+      "sourceRoot": "kşf"
+    },
+    {
+      "key": "تمم",
+      "reading": "t-m-m",
+      "title": "Tamamlamak",
+      "meaning": "bütünlük ve tamamlama",
+      "sourceRoot": "tmm"
+    },
+    {
+      "key": "نقد",
+      "reading": "n-k-d",
+      "title": "Eleştirmek",
+      "meaning": "eleştiri ve para ile ilgili anlamlar",
+      "sourceRoot": "nḳd"
+    },
+    {
+      "key": "خصص",
+      "reading": "h-s-s",
+      "title": "Ayırmak / özgülemek",
+      "meaning": "özellik, ayırma ve uzmanlaşma",
+      "sourceRoot": "χṣṣ"
     }
   ],
   "entries": [
@@ -6821,6 +6961,1333 @@
         "headword": "hamule",
         "scope": "headword",
         "checkedOn": "2026-10-01"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "فتش",
+      "role": "action",
+      "word": "teftiş",
+      "arabic": "تفتيش",
+      "reading": "teftiş",
+      "turkish": "Bir işi veya kurumu ayrıntılı biçimde denetleme",
+      "definition": "Bir işi veya kurumu ayrıntılı biçimde denetleme.",
+      "pattern": "II. biçim · mastar",
+      "example": "Kurumda gelecek hafta teftiş yapılacak.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tefti%C5%9F",
+        "headword": "teftiş",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "فتش",
+      "role": "agent",
+      "word": "müfettiş",
+      "arabic": "مفتِّش",
+      "reading": "müfettiş",
+      "turkish": "İşleyişi inceleyip denetlemekle görevli kişi",
+      "definition": "İşleyişi inceleyip denetlemekle görevli kişi.",
+      "pattern": "II. biçim · ism-i fail",
+      "example": "Müfettiş kayıtları yerinde inceledi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/m%C3%BCfetti%C5%9F",
+        "headword": "müfettiş",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "شكل",
+      "role": "action",
+      "word": "şekil",
+      "arabic": "شكل",
+      "reading": "şekil",
+      "turkish": "Bir nesnenin dış görünüşü veya biçimi",
+      "definition": "Bir nesnenin dış görünüşü veya biçimi.",
+      "pattern": "Fa‘l · mastar adayı",
+      "example": "Kabın şekli kullanımını kolaylaştırıyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/%C5%9Fekil",
+        "headword": "şekil",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "شكل",
+      "role": "action",
+      "word": "teşkil",
+      "arabic": "تشكيل",
+      "reading": "teşkil",
+      "turkish": "Bir bütünü meydana getirme veya oluşturma",
+      "definition": "Bir bütünü meydana getirme veya oluşturma.",
+      "pattern": "II. biçim · mastar",
+      "example": "Bu maddeler raporun temelini teşkil ediyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/te%C5%9Fkil",
+        "headword": "teşkil",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "شكل",
+      "role": "action",
+      "word": "teşekkül",
+      "arabic": "تشكّل",
+      "reading": "teşekkül",
+      "turkish": "Bir araya gelerek oluşma veya biçimlenme",
+      "definition": "Bir araya gelerek oluşma veya biçimlenme.",
+      "pattern": "V. biçim · mastar",
+      "example": "Yeni bir çalışma grubu teşekkül etti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/te%C5%9Fekk%C3%BCl",
+        "headword": "teşekkül",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "V.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ثبت",
+      "role": "action",
+      "word": "tespit",
+      "arabic": "تثبيت",
+      "reading": "tespit",
+      "turkish": "Bir durumu belirleyip kesin olarak ortaya koyma",
+      "definition": "Bir durumu belirleyip kesin olarak ortaya koyma.",
+      "pattern": "II. biçim · mastar",
+      "example": "Ekip arızanın kaynağını tespit etti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tespit",
+        "headword": "tespit",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ثبت",
+      "role": "agent",
+      "word": "sabit",
+      "arabic": "ثابت",
+      "reading": "sabit",
+      "turkish": "Yerini veya durumunu koruyan, değişmeyen",
+      "definition": "Yerini veya durumunu koruyan, değişmeyen.",
+      "pattern": "İsm-i fail · I",
+      "example": "Düzeneğin sabit bir dayanağı var.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/sabit",
+        "headword": "sabit",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ثبت",
+      "role": "action",
+      "word": "sebat",
+      "arabic": "ثبات",
+      "reading": "sebat",
+      "turkish": "Bir tutum veya çabayı kararlılıkla sürdürme",
+      "definition": "Bir tutum veya çabayı kararlılıkla sürdürme.",
+      "pattern": "fa‘âl · mastar",
+      "example": "Uzun çalışmada sebat gösterdi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/sebat",
+        "headword": "sebat",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "ثبت",
+      "role": "action",
+      "word": "sübut",
+      "arabic": "ثُبُوت",
+      "reading": "sübut",
+      "turkish": "Bir durumun doğruluğunun kesinlik kazanması",
+      "definition": "Bir durumun doğruluğunun kesinlik kazanması.",
+      "pattern": "fu‘ûl · mastar",
+      "example": "İddianın sübutu için belge gerekiyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/s%C3%BCbut",
+        "headword": "sübut",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "مثل",
+      "role": "action",
+      "word": "temsil",
+      "arabic": "تمثيل",
+      "reading": "temsil",
+      "turkish": "Bir kişi, topluluk veya düşünce adına bulunma ya da onu canlandırma",
+      "definition": "Bir kişi, topluluk veya düşünce adına bulunma ya da onu canlandırma.",
+      "pattern": "II. biçim · mastar",
+      "example": "Heyet toplantıda kurumu temsil etti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/temsil",
+        "headword": "temsil",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "مثل",
+      "role": "theme",
+      "word": "misal",
+      "arabic": "مثال",
+      "reading": "misal",
+      "turkish": "Bir durumu anlatmaya yarayan örnek",
+      "definition": "Bir durumu anlatmaya yarayan örnek.",
+      "pattern": "Fiâl",
+      "example": "Öğretmen konuyu bir misalle açıkladı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/misal",
+        "headword": "misal",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.fial"
+    },
+    {
+      "kind": "dictionary",
+      "root": "مثل",
+      "role": "theme",
+      "word": "misil",
+      "arabic": "مثل",
+      "reading": "misil",
+      "turkish": "Bir şeyin benzeri, dengi veya katı",
+      "definition": "Bir şeyin benzeri, dengi veya katı.",
+      "pattern": "fi‘l · isim",
+      "example": "Bu düzenek ötekinin iki misli yük taşıyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/misil",
+        "headword": "misil",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "مثل",
+      "role": "agent",
+      "word": "mümessil",
+      "arabic": "ممثّل",
+      "reading": "mümessil",
+      "turkish": "Bir başkası adına hareket eden temsilci",
+      "definition": "Bir başkası adına hareket eden temsilci.",
+      "pattern": "II. biçim · ism-i fail",
+      "example": "Firma mümessili yeni ürünleri tanıttı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/m%C3%BCmessil",
+        "headword": "mümessil",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "دوم",
+      "role": "action",
+      "word": "devam",
+      "arabic": "دوام",
+      "reading": "devam",
+      "turkish": "Bir işin veya durumun kesilmeden sürmesi",
+      "definition": "Bir işin veya durumun kesilmeden sürmesi.",
+      "pattern": "fa‘âl · mastar",
+      "example": "Çalışmaya yarın devam edeceğiz.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/devam",
+        "headword": "devam",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "دوم",
+      "role": "agent",
+      "word": "daim",
+      "arabic": "دائم",
+      "reading": "daim",
+      "turkish": "Sürekli olan veya sürüp giden",
+      "definition": "Sürekli olan veya sürüp giden.",
+      "pattern": "İsm-i fail · I",
+      "example": "Dostluğunuz daim olsun.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/daim",
+        "headword": "daim",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "دوم",
+      "role": "action",
+      "word": "idame",
+      "arabic": "إدامة",
+      "reading": "idame",
+      "turkish": "Bir şeyi sürdürme veya devamını sağlama",
+      "definition": "Bir şeyi sürdürme veya devamını sağlama.",
+      "pattern": "IV. biçim · mastar",
+      "example": "Sistemin idamesi düzenli bakım gerektiriyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/idame",
+        "headword": "idame",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "IV.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "دوم",
+      "role": "agent",
+      "word": "müdavim",
+      "arabic": "مداوم",
+      "reading": "müdavim",
+      "turkish": "Bir yere veya etkinliğe düzenli olarak devam eden kişi",
+      "definition": "Bir yere veya etkinliğe düzenli olarak devam eden kişi.",
+      "pattern": "III. biçim · ism-i fail",
+      "example": "Kütüphanenin müdavimleri bu masayı iyi bilir.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/m%C3%BCdavim",
+        "headword": "müdavim",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "III.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "عقب",
+      "role": "action",
+      "word": "takip",
+      "arabic": "تعقيب",
+      "reading": "takip",
+      "turkish": "Birinin veya bir işin ardından gidip onu izleme",
+      "definition": "Birinin veya bir işin ardından gidip onu izleme.",
+      "pattern": "II. biçim · mastar",
+      "example": "Başvurunun durumunu takip ediyoruz.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/takip",
+        "headword": "takip",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "عقب",
+      "role": "theme",
+      "word": "akıbet",
+      "arabic": "عاقِبة",
+      "reading": "akıbet",
+      "turkish": "Bir işin sonunda ortaya çıkan durum veya sonuç",
+      "definition": "Bir işin sonunda ortaya çıkan durum veya sonuç.",
+      "pattern": "fâ‘ile · isim",
+      "example": "Başvurunun akıbetini henüz bilmiyoruz.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/ak%C4%B1bet",
+        "headword": "akıbet",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "عقب",
+      "role": "agent",
+      "word": "müteakip",
+      "arabic": "متعاقب",
+      "reading": "müteakip",
+      "turkish": "Bir şeyin ardından gelen veya onu izleyen",
+      "definition": "Bir şeyin ardından gelen veya onu izleyen.",
+      "pattern": "VI. biçim · ism-i fail",
+      "example": "Toplantıyı müteakip kısa bir açıklama yapıldı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/m%C3%BCteakip",
+        "headword": "müteakip",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "VI.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "حرر",
+      "role": "quality",
+      "word": "hür",
+      "arabic": "حُرّ",
+      "reading": "hür",
+      "turkish": "Başkasına bağımlı olmadan hareket edebilen, özgür",
+      "definition": "Başkasına bağımlı olmadan hareket edebilen, özgür.",
+      "pattern": "fu‘l · sıfat",
+      "example": "Herkes hür iradesiyle karar vermeli.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/h%C3%BCr",
+        "headword": "hür",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "حرر",
+      "role": "quality",
+      "word": "hürriyet",
+      "arabic": "حرّيّة",
+      "reading": "hürriyet",
+      "turkish": "Özgür olma durumu veya özgürlük",
+      "definition": "Özgür olma durumu veya özgürlük.",
+      "pattern": "fu‘liyye · soyut isim",
+      "example": "Düşünce hürriyeti tartışmanın temeliydi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/h%C3%BCrriyet",
+        "headword": "hürriyet",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "حرر",
+      "role": "action",
+      "word": "tahrir",
+      "arabic": "تحرير",
+      "reading": "tahrir",
+      "turkish": "Yazıya geçirme, kaydetme veya yayıma hazırlama",
+      "definition": "Yazıya geçirme, kaydetme veya yayıma hazırlama.",
+      "pattern": "II. biçim · mastar",
+      "example": "Araştırmacı eski tahrir defterlerini inceledi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tahrir",
+        "headword": "tahrir",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "حرر",
+      "role": "agent",
+      "word": "muharrir",
+      "arabic": "محرِّر",
+      "reading": "muharrir",
+      "turkish": "Yazı yazan veya yayıma hazırlayan kişi",
+      "definition": "Yazı yazan veya yayıma hazırlayan kişi.",
+      "pattern": "II. biçim · ism-i fail",
+      "example": "Gazetenin muharriri yeni bir yazı hazırladı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/muharrir",
+        "headword": "muharrir",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ءمر",
+      "role": "action",
+      "word": "emir",
+      "arabic": "أمر",
+      "reading": "emir",
+      "turkish": "Yapılması istenen işi bildiren buyruk",
+      "definition": "Yapılması istenen işi bildiren buyruk.",
+      "pattern": "Fa‘l · mastar adayı",
+      "example": "Verilen emir yazılı olarak iletildi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/emir",
+        "headword": "emir",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ءمر",
+      "role": "patient",
+      "word": "memur",
+      "arabic": "مأمور",
+      "reading": "memur",
+      "turkish": "Bir işi yapmakla görevlendirilmiş kişi",
+      "definition": "Bir işi yapmakla görevlendirilmiş kişi.",
+      "pattern": "İsm-i meful · I",
+      "example": "Memur başvuruyu kayıt altına aldı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/memur",
+        "headword": "memur",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.patient"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ءمر",
+      "role": "agent",
+      "word": "amir",
+      "arabic": "آمر",
+      "reading": "amir",
+      "turkish": "Görevi gereği emir ve talimat veren yönetici",
+      "definition": "Görevi gereği emir ve talimat veren yönetici.",
+      "pattern": "İsm-i fail · I",
+      "example": "Birim amiri iş bölümünü açıkladı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/amir",
+        "headword": "amir",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "حبب",
+      "role": "action",
+      "word": "muhabbet",
+      "arabic": "محبّة",
+      "reading": "muhabbet",
+      "turkish": "Sevgi, dostluk veya yakınlık duygusu",
+      "definition": "Sevgi, dostluk veya yakınlık duygusu.",
+      "pattern": "mef‘ale · mimli mastar",
+      "example": "Eski dostlar muhabbetle bir araya geldi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/muhabbet",
+        "headword": "muhabbet",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "حبب",
+      "role": "patient",
+      "word": "mahbup",
+      "arabic": "محبوب",
+      "reading": "mahbup",
+      "turkish": "Sevilen kimse veya sevgili",
+      "definition": "Sevilen kimse veya sevgili.",
+      "pattern": "İsm-i meful · I",
+      "example": "Şiirde mahbuba duyulan özlem anlatılıyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/mahbup",
+        "headword": "mahbup",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.patient"
+    },
+    {
+      "kind": "dictionary",
+      "root": "حبب",
+      "role": "quality",
+      "word": "habip",
+      "arabic": "حبيب",
+      "reading": "habip",
+      "turkish": "Sevgili veya yakın dost",
+      "definition": "Sevgili veya yakın dost.",
+      "pattern": "Faîl · nitelik adayı",
+      "example": "Mektup habibine duyduğu özlemi anlatıyordu.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/habip",
+        "headword": "habip",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.quality"
+    },
+    {
+      "kind": "dictionary",
+      "root": "خدم",
+      "role": "action",
+      "word": "hizmet",
+      "arabic": "خدمة",
+      "reading": "hizmet",
+      "turkish": "Bir işin görülmesi veya birine yararlı çalışma sunulması",
+      "definition": "Bir işin görülmesi veya birine yararlı çalışma sunulması.",
+      "pattern": "fi‘le · mastar",
+      "example": "Bu hizmet bütün mahalleye ulaşıyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/hizmet",
+        "headword": "hizmet",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "خدم",
+      "role": "action",
+      "word": "istihdam",
+      "arabic": "اِستخدام",
+      "reading": "istihdam",
+      "turkish": "Birini bir işte çalıştırma veya işe alma",
+      "definition": "Birini bir işte çalıştırma veya işe alma.",
+      "pattern": "X. biçim · mastar",
+      "example": "Yeni yatırım bölgede istihdam sağlayacak.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/istihdam",
+        "headword": "istihdam",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "X.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "خدم",
+      "role": "patient",
+      "word": "müstahdem",
+      "arabic": "مستخدم",
+      "reading": "müstahdem",
+      "turkish": "Bir işte çalıştırılan görevli veya çalışan",
+      "definition": "Bir işte çalıştırılan görevli veya çalışan.",
+      "pattern": "X. biçim · ism-i meful",
+      "example": "Binanın müstahdemi kapıları açtı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/m%C3%BCstahdem",
+        "headword": "müstahdem",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "X.patient"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ضبط",
+      "role": "action",
+      "word": "zabıt",
+      "arabic": "ضبط",
+      "reading": "zabıt",
+      "turkish": "Bir olayın veya konuşmanın yazılı kaydı",
+      "definition": "Bir olayın veya konuşmanın yazılı kaydı.",
+      "pattern": "Fa‘l · mastar adayı",
+      "example": "Toplantı zabıtları arşive kaldırıldı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/zab%C4%B1t",
+        "headword": "zabıt",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ضبط",
+      "role": "agent",
+      "word": "zabıta",
+      "arabic": "ضابطة",
+      "reading": "zabıta",
+      "turkish": "Yerel düzeni ve kurallara uyulmasını denetleyen görevli veya teşkilat",
+      "definition": "Yerel düzeni ve kurallara uyulmasını denetleyen görevli veya teşkilat.",
+      "pattern": "fâ‘ile · ism-i failin dişili",
+      "example": "Zabıta ekipleri pazarı denetledi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/zab%C4%B1ta",
+        "headword": "zabıta",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "ضبط",
+      "role": "patient",
+      "word": "mazbut",
+      "arabic": "مضبوط",
+      "reading": "mazbut",
+      "turkish": "Düzenli, korunmuş veya denetim altında tutulan",
+      "definition": "Düzenli, korunmuş veya denetim altında tutulan.",
+      "pattern": "İsm-i meful · I",
+      "example": "Belgeler mazbut bir dosyada saklanmıştı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/mazbut",
+        "headword": "mazbut",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.patient"
+    },
+    {
+      "kind": "dictionary",
+      "root": "ضبط",
+      "role": "action",
+      "word": "inzibat",
+      "arabic": "انضباط",
+      "reading": "inzibat",
+      "turkish": "Düzen ve disiplinin sağlanması",
+      "definition": "Düzen ve disiplinin sağlanması.",
+      "pattern": "VII. biçim · mastar",
+      "example": "Birlikte inzibatın korunmasına önem verildi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/inzibat",
+        "headword": "inzibat",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "VII.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "جهل",
+      "role": "action",
+      "word": "cehalet",
+      "arabic": "جهالة",
+      "reading": "cehalet",
+      "turkish": "Bir konu hakkında bilgisiz olma durumu",
+      "definition": "Bir konu hakkında bilgisiz olma durumu.",
+      "pattern": "fi‘âle · mastar",
+      "example": "Eğitim cehaletin azalmasına katkı sağlar.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/cehalet",
+        "headword": "cehalet",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "جهل",
+      "role": "agent",
+      "word": "cahil",
+      "arabic": "جاهل",
+      "reading": "cahil",
+      "turkish": "Bir konuda yeterli bilgisi bulunmayan kişi",
+      "definition": "Bir konuda yeterli bilgisi bulunmayan kişi.",
+      "pattern": "İsm-i fail · I",
+      "example": "Bilmediği konuda cahil olduğunu kabul etti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/cahil",
+        "headword": "cahil",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "جهل",
+      "role": "patient",
+      "word": "meçhul",
+      "arabic": "مجهول",
+      "reading": "meçhul",
+      "turkish": "Kimliği veya niteliği bilinmeyen",
+      "definition": "Kimliği veya niteliği bilinmeyen.",
+      "pattern": "İsm-i meful · I",
+      "example": "Mektubun göndericisi meçhul kaldı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/me%C3%A7hul",
+        "headword": "meçhul",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.patient"
+    },
+    {
+      "kind": "dictionary",
+      "root": "عرف",
+      "role": "agent",
+      "word": "arif",
+      "arabic": "عارف",
+      "reading": "arif",
+      "turkish": "Bilgisi ve kavrayışı gelişmiş kimse",
+      "definition": "Bilgisi ve kavrayışı gelişmiş kimse.",
+      "pattern": "İsm-i fail · I",
+      "example": "Arif kişi söyleneni dikkatle değerlendirir.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/arif",
+        "headword": "arif",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "عرف",
+      "role": "action",
+      "word": "irfan",
+      "arabic": "عِرْفَان",
+      "reading": "irfan",
+      "turkish": "Öğrenme ve deneyimle kazanılan derin kavrayış",
+      "definition": "Öğrenme ve deneyimle kazanılan derin kavrayış.",
+      "pattern": "fi‘lân · mastar",
+      "example": "Sohbette bilgi ve irfanın değeri konuşuldu.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/irfan",
+        "headword": "irfan",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "عرف",
+      "role": "action",
+      "word": "marifet",
+      "arabic": "معرفة",
+      "reading": "marifet",
+      "turkish": "Bilgi ve deneyimle kazanılan beceri veya hüner",
+      "definition": "Bilgi ve deneyimle kazanılan beceri veya hüner.",
+      "pattern": "mef‘ile · mimli mastar",
+      "example": "Bu iş biraz marifet gerektiriyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/marifet",
+        "headword": "marifet",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "عرف",
+      "role": "action",
+      "word": "tarif",
+      "arabic": "تعريف",
+      "reading": "tarif",
+      "turkish": "Bir şeyi özellikleriyle anlatma veya yol gösterme",
+      "definition": "Bir şeyi özellikleriyle anlatma veya yol gösterme.",
+      "pattern": "II. biçim · mastar",
+      "example": "Usta düzeneğin nasıl çalıştığını tarif etti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tarif",
+        "headword": "tarif",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "عرف",
+      "role": "action",
+      "word": "itiraf",
+      "arabic": "اِعتراف",
+      "reading": "itiraf",
+      "turkish": "Bilinen veya yapılmış bir şeyi açıkça kabul etme",
+      "definition": "Bilinen veya yapılmış bir şeyi açıkça kabul etme.",
+      "pattern": "VIII. biçim · mastar",
+      "example": "Hatasını itiraf ederek düzeltmeye başladı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/itiraf",
+        "headword": "itiraf",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "VIII.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "فرق",
+      "role": "action",
+      "word": "fark",
+      "arabic": "فرق",
+      "reading": "fark",
+      "turkish": "İki şeyin birbirinden ayrılmasını sağlayan özellik",
+      "definition": "İki şeyin birbirinden ayrılmasını sağlayan özellik.",
+      "pattern": "Fa‘l · mastar adayı",
+      "example": "İki ölçüm arasındaki farkı hesapladı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/fark",
+        "headword": "fark",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "فرق",
+      "role": "theme",
+      "word": "fırka",
+      "arabic": "فرقة",
+      "reading": "fırka",
+      "turkish": "Belirli bir amaçla ayrılmış grup veya topluluk",
+      "definition": "Belirli bir amaçla ayrılmış grup veya topluluk.",
+      "pattern": "fi‘le · isim",
+      "example": "Tarihçi dönemin siyasi fırkalarını inceledi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/f%C4%B1rka",
+        "headword": "fırka",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "فرق",
+      "role": "action",
+      "word": "tefrik",
+      "arabic": "تفريق",
+      "reading": "tefrik",
+      "turkish": "Birbirinden ayırma veya ayrı tutma",
+      "definition": "Birbirinden ayırma veya ayrı tutma.",
+      "pattern": "II. biçim · mastar",
+      "example": "Belgelerin tarihlerine göre tefriki gerekiyor.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tefrik",
+        "headword": "tefrik",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "شرح",
+      "role": "action",
+      "word": "şerh",
+      "arabic": "شَرْح",
+      "reading": "şerh",
+      "turkish": "Bir metni açıklayan yorum veya açıklama",
+      "definition": "Bir metni açıklayan yorum veya açıklama.",
+      "pattern": "Fa‘l · mastar adayı",
+      "example": "Araştırmacı metnin eski bir şerhini buldu.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/%C5%9Ferh",
+        "headword": "şerh",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "شرح",
+      "role": "action",
+      "word": "teşrih",
+      "arabic": "تشريح",
+      "reading": "teşrih",
+      "turkish": "Bir bütünü açıp parçalarını inceleme veya ayrıntılı açıklama",
+      "definition": "Bir bütünü açıp parçalarını inceleme veya ayrıntılı açıklama.",
+      "pattern": "II. biçim · mastar",
+      "example": "Ders eski bir teşrih çizimi üzerinden işlendi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/te%C5%9Frih",
+        "headword": "teşrih",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "نشر",
+      "role": "action",
+      "word": "intişar",
+      "arabic": "اِنتشار",
+      "reading": "intişar",
+      "turkish": "Bir şeyin çevreye yayılması",
+      "definition": "Bir şeyin çevreye yayılması.",
+      "pattern": "VIII. biçim · mastar",
+      "example": "Haberin intişarı kısa sürede gerçekleşti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/inti%C5%9Far",
+        "headword": "intişar",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "VIII.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "كشف",
+      "role": "agent",
+      "word": "kâşif",
+      "arabic": "كاشف",
+      "reading": "kâşif",
+      "turkish": "Bilinmeyen veya saklı bir şeyi bulan kişi",
+      "definition": "Bilinmeyen veya saklı bir şeyi bulan kişi.",
+      "pattern": "İsm-i fail · I",
+      "example": "Kâşif bulgularını ayrıntılı biçimde kaydetti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/k%C3%A2%C5%9Fif",
+        "headword": "kâşif",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "كشف",
+      "role": "action",
+      "word": "inkişaf",
+      "arabic": "اِنكشاف",
+      "reading": "inkişaf",
+      "turkish": "Açılıp ortaya çıkma veya gelişme",
+      "definition": "Açılıp ortaya çıkma veya gelişme.",
+      "pattern": "VII. biçim · mastar",
+      "example": "Şehrin inkişafı ulaşımı da değiştirdi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/inki%C5%9Faf",
+        "headword": "inkişaf",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "VII.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "تمم",
+      "role": "action",
+      "word": "tamam",
+      "arabic": "تمام",
+      "reading": "tamam",
+      "turkish": "Bir bütünün eksiksiz olması veya işin bitmesi",
+      "definition": "Bir bütünün eksiksiz olması veya işin bitmesi.",
+      "pattern": "fa‘âl · mastar",
+      "example": "Hazırlıkların tamamı akşam bitmişti.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tamam",
+        "headword": "tamam",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "تمم",
+      "role": "agent",
+      "word": "tam",
+      "arabic": "تامّ",
+      "reading": "tam",
+      "turkish": "Eksiksiz veya bütünüyle mevcut olan",
+      "definition": "Eksiksiz veya bütünüyle mevcut olan.",
+      "pattern": "İsm-i fail · I",
+      "example": "Ölçüm için tam bir gün bekledik.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tam",
+        "headword": "tam",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "تمم",
+      "role": "agent",
+      "word": "mütemmim",
+      "arabic": "متمّم",
+      "reading": "mütemmim",
+      "turkish": "Bir bütünü tamamlayan veya eksik parçayı sağlayan",
+      "definition": "Bir bütünü tamamlayan veya eksik parçayı sağlayan.",
+      "pattern": "II. biçim · ism-i fail",
+      "example": "Bu parça düzeneğin mütemmim unsurudur.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/m%C3%BCtemmim",
+        "headword": "mütemmim",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.agent"
+    },
+    {
+      "kind": "dictionary",
+      "root": "نقد",
+      "role": "action",
+      "word": "nakit",
+      "arabic": "نقد",
+      "reading": "nakit",
+      "turkish": "Ödemede doğrudan kullanılan para",
+      "definition": "Ödemede doğrudan kullanılan para.",
+      "pattern": "Fa‘l · mastar adayı",
+      "example": "Ödemeyi nakit olarak yaptı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/nakit",
+        "headword": "nakit",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "نقد",
+      "role": "action",
+      "word": "tenkit",
+      "arabic": "تنقيد",
+      "reading": "tenkit",
+      "turkish": "Bir düşünceyi veya eseri değerlendiren eleştiri",
+      "definition": "Bir düşünceyi veya eseri değerlendiren eleştiri.",
+      "pattern": "II. biçim · mastar",
+      "example": "Yazar esere yöneltilen tenkitleri yanıtladı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tenkit",
+        "headword": "tenkit",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar",
+      "originNote": "Nişanyan, Türkçede belgelenen sözcüğün Arapça ara biçimini tanıksız olarak işaretler."
+    },
+    {
+      "kind": "dictionary",
+      "root": "نقد",
+      "role": "agent",
+      "word": "münekkit",
+      "arabic": "منقّد",
+      "reading": "münekkit",
+      "turkish": "Eser veya düşünceleri eleştirel biçimde değerlendiren kişi",
+      "definition": "Eser veya düşünceleri eleştirel biçimde değerlendiren kişi.",
+      "pattern": "II. biçim · ism-i fail",
+      "example": "Münekkit kitabın anlatımını değerlendirdi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/m%C3%BCnekkit",
+        "headword": "münekkit",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.agent",
+      "originNote": "Nişanyan, Türkçede belgelenen sözcüğün Arapça ara biçimini tanıksız olarak işaretler."
+    },
+    {
+      "kind": "dictionary",
+      "root": "خصص",
+      "role": "action",
+      "word": "husus",
+      "arabic": "خصوص",
+      "reading": "husus",
+      "turkish": "Bir konunun ayrı olarak ele alınan yanı veya özelliği",
+      "definition": "Bir konunun ayrı olarak ele alınan yanı veya özelliği.",
+      "pattern": "fu‘ûl · mastar",
+      "example": "Bu husus toplantıda ayrıca görüşüldü.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/husus",
+        "headword": "husus",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "خصص",
+      "role": "action",
+      "word": "tahsis",
+      "arabic": "تخصيص",
+      "reading": "tahsis",
+      "turkish": "Bir şeyi belirli bir amaç veya kişi için ayırma",
+      "definition": "Bir şeyi belirli bir amaç veya kişi için ayırma.",
+      "pattern": "II. biçim · mastar",
+      "example": "Yeni salon eğitim için tahsis edildi.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/tahsis",
+        "headword": "tahsis",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "II.masdar",
+      "originNote": "Kaynağın Latin harfli kök notu (ḥṣṣ), aynı maddedeki Arapça خَصَّ fiilinden farklıdır. Burada Arapça yazım ve “husus” bağlantısı esas alınarak خصص ailesinde gösterilmiştir."
+    },
+    {
+      "kind": "dictionary",
+      "root": "خصص",
+      "role": "patient",
+      "word": "mahsus",
+      "arabic": "مخصوص",
+      "reading": "mahsus",
+      "turkish": "Belirli bir şeye ayrılmış veya ona özgü olan",
+      "definition": "Belirli bir şeye ayrılmış veya ona özgü olan.",
+      "pattern": "İsm-i meful · I",
+      "example": "Bu raf yalnızca başvuru kitaplarına mahsus.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/mahsus",
+        "headword": "mahsus",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "I.patient"
+    },
+    {
+      "kind": "dictionary",
+      "root": "خصص",
+      "role": "action",
+      "word": "ihtisas",
+      "arabic": "ِاِختصاص",
+      "reading": "ihtisas",
+      "turkish": "Belirli bir alanda uzmanlaşma",
+      "definition": "Belirli bir alanda uzmanlaşma.",
+      "pattern": "VIII. biçim · mastar",
+      "example": "İhtisasını tamamladıktan sonra çalışmaya başladı.",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/ihtisas",
+        "headword": "ihtisas",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      },
+      "formId": "VIII.masdar"
+    },
+    {
+      "kind": "dictionary",
+      "root": "نشر",
+      "word": "neşir",
+      "role": "action",
+      "reading": "neşir",
+      "turkish": "Bir yazıyı veya bilgiyi yayımlama",
+      "definition": "Bir yazıyı veya bilgiyi yayımlama.",
+      "pattern": "Fa‘l · mastar adayı",
+      "formId": "I.masdar",
+      "example": "Yayınevi eserin neşri için hazırlığa başladı.",
+      "arabic": "نشر",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/ne%C5%9Fir",
+        "headword": "neşir",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "نشر",
+      "word": "naşir",
+      "role": "agent",
+      "reading": "naşir",
+      "turkish": "Bir eseri yayımlayan kişi veya kuruluş",
+      "definition": "Bir eseri yayımlayan kişi veya kuruluş.",
+      "pattern": "İsm-i fail · I",
+      "formId": "I.agent",
+      "example": "Naşir yeni baskının hazırlıklarını tamamladı.",
+      "arabic": "ناشر",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/na%C5%9Fir",
+        "headword": "naşir",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "كشف",
+      "word": "keşif",
+      "role": "action",
+      "reading": "keşif",
+      "turkish": "Daha önce bilinmeyen bir şeyi ortaya çıkarma",
+      "definition": "Daha önce bilinmeyen bir şeyi ortaya çıkarma.",
+      "pattern": "Fa‘l · mastar adayı",
+      "formId": "I.masdar",
+      "example": "Yeni keşif araştırmanın yönünü değiştirdi.",
+      "arabic": "كَشْف",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/ke%C5%9Fif",
+        "headword": "keşif",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
+      }
+    },
+    {
+      "kind": "dictionary",
+      "root": "تمم",
+      "word": "itmam",
+      "role": "action",
+      "reading": "itmam",
+      "turkish": "Bir işi bitirme veya eksiksiz duruma getirme",
+      "definition": "Bir işi bitirme veya eksiksiz duruma getirme.",
+      "pattern": "IV. biçim · mastar",
+      "formId": "IV.masdar",
+      "example": "Yapının itmamı için son çalışmalar yapılıyor.",
+      "arabic": "إتمام",
+      "source": {
+        "dictionary": "Nişanyan Sözlük",
+        "url": "https://www.nisanyansozluk.com/kelime/itmam",
+        "headword": "itmam",
+        "scope": "headword",
+        "checkedOn": "2026-10-18"
       }
     }
   ]

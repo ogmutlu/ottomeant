@@ -27,7 +27,7 @@ jobs:
       - run: uv sync --locked
       - run: npm ci
       - run: npm run check
-      - run: uv run --locked ruff format --check pipeline tests/python scripts/check_site.py
+      - run: uv run --locked ruff format --check pipeline tests/python scripts/check_site.py scripts/inspect_nisanyan.py
       - run: npm test
       - name: Prepare public files
         run: |

@@ -189,6 +189,54 @@ test("Turkish words, circumflex aliases, and exact Arabic roots resolve", () => 
   assert.notEqual(normalizeWord("ü"), normalizeWord("u"));
 });
 
+test("new Nişanyan words resolve their roots and replace matching hypothetical forms", async () => {
+  for (const [word, root] of [
+    ["teftiş", "فتش"],
+    ["müfettiş", "فتش"],
+    ["TEFTİŞ", "فتش"],
+    ["tespit", "ثبت"],
+    ["temsil", "مثل"],
+    ["teşkil", "شكل"],
+    ["devam", "دوم"],
+    ["takip", "عقب"],
+    ["hürriyet", "حرر"],
+    ["memur", "ءمر"],
+    ["muhabbet", "حبب"],
+    ["istihdam", "خدم"],
+    ["meçhul", "جهل"],
+    ["tarif", "عرف"],
+    ["tefrik", "فرق"],
+    ["teşrih", "شرح"],
+    ["intişar", "نشر"],
+    ["neşir", "نشر"],
+    ["keşif", "كشف"],
+    ["tamam", "تمم"],
+    ["itmam", "تمم"],
+    ["tenkit", "نقد"],
+    ["ihtisas", "خصص"],
+  ])
+    assert.equal(keyOf(word), root, word);
+  assert.ok(lookup.suggest("tef").some((entry) => entry.word === "teftiş"));
+  const family = await loadFamily({ key: "فتش", inventory: "arabic" });
+  assert.deepEqual(
+    new Set(family.dictionary.map((entry) => entry.word)),
+    new Set(["teftiş", "müfettiş"]),
+  );
+  assert.ok(
+    family.generated.every(
+      (form) => !["II.masdar", "II.agent"].includes(form.pattern.id),
+    ),
+  );
+  assert.ok(
+    family.dictionary.every(
+      (entry) => entry.source.dictionary === "Nişanyan Sözlük",
+    ),
+  );
+  const html = renderFamily(family, manifest, true);
+  assert.match(html, /Nişanyan kaydı/);
+  assert.match(html, /https:\/\/www.nisanyansozluk.com\/kelime\/tefti%C5%9F/);
+});
+
 test("ambiguous Turkish roots offer every known match", () => {
   const result = lookup.resolve("k-l-m");
   assert.equal(result.kind, "ambiguous");
@@ -533,5 +581,6 @@ test("every dictionary root decodes and retains all sourced words in the grouped
     );
     total += sourced.length;
   }
-  assert.equal(total, 324);
+  assert.equal(total, manifest.dictionaryEntryCount);
+  assert.ok(total >= 391);
 });
